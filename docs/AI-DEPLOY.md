@@ -1,4 +1,4 @@
-﻿# 给 AI 的整包部署说明（AI-DEPLOY）
+# 给 AI 的整包部署说明（AI-DEPLOY）
 
 > 目标读者：拿到 `dsh-mobile-watch` 整个文件夹的 AI 编码代理。  
 > 目标：在用户电脑上完成 DSH 插件、网关、PWA 的部署并验证；**不修改 DSH 源码，不碰 `ui-theme` 等 UI 插件，不读取/写入凭证**。
@@ -12,6 +12,7 @@
 3. `docs/M2-P0-HARDENING.md`（安全/自启）
 4. `docs/M4-A-REPORT.md` / `docs/M4-B-REPORT.md`（审批/问答接口）
 5. `docs/M4-EDGE-TEST-PLAN.md`（边界测试；默认不执行）
+6. `docs/USER-GUIDE.md`（部署完成后交给用户的日常使用说明）
 
 ## 1 环境检查
 
