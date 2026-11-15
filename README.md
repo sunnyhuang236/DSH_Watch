@@ -6,7 +6,7 @@ DSH 移动盯梢器的代码仓库：电脑上运行 DSH 长任务，手机随�
 - **M2 可用版**：`dsh-watch-gateway`（配对 / 设备凭证 / `/v1` 反代 / PWA 托管 / VAPID Web Push / cloudflared 隧道）+ PWA（配对/任务/详情/提醒/设置、Service Worker、安装引导、缓存）；21 项网关测试 + 本地 E2E + **iPhone 17 Pro Max 真机 V06 20/20 到达（100%）**。
 - **M3 展示版（已完成）**：`apps/ios/DSHWatch` SwiftUI 源码 + XcodeGen + GitHub Actions 未签名 IPA + Sideloadly 真机安装；任务列表/详情/提醒记录/断网缓存与 iPhone 热点局域网直连均已验证（7 天免费签名到期续签为未来维护项）。
 - **M4-A 手机审批（真机通过）**：插件审批桥 + 网关 `/v1/actions` + PWA 审批卡片；手机点击“允许一次”后 `decision=mobile / outcome=allowed-once`，任务恢复运行。
-- **M4-B 问答桥（真机通过）**：插件 `user-questions/request` 桥 + PWA 问答卡片；70/70 测试通过，手机选择「手机回答」后 `decision=mobile`、`status=answered`，DSH 工具收到答案并继续。
+- **M4-B 问答桥（真机通过）**：插件 `user-questions/request` 桥 + PWA 问答卡片；71/71 测试通过，手机选择「手机回答」后 `decision=mobile`、`status=answered`，DSH 工具收到答案并继续。
 - **M4-C 轨迹/费用/子代理（真机通过）**：轨迹按轮次折叠、最近/异常展开；费用缺失显示“暂无数据”；子代理数量/深度/状态展示，缓存升级 `dsh-watch-v7`。
 
 ```

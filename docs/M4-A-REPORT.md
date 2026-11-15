@@ -1,6 +1,6 @@
 # M4-A 手机审批（后端 + PWA 卡片）
 
-日期：2026-11-15｜状态：**手机审批真机通过（action=decided / decision=mobile / allowed-once）**；M4-B 问答桥代码完成，70/70 测试通过；桌面抢答冲突/拒绝真机测试待补。
+日期：2026-11-15｜状态：**手机审批允许/拒绝/conflict 真机通过**；M4-B 问答桥真机通过；71/71 测试通过；插件重启 expired 已由单元/API 覆盖，真机待补。
 
 ## 1 范围
 
@@ -45,7 +45,7 @@ body: {"decision":"allowed-once"} | {"decision":"rejected"}
 
 ## 3 测试
 
-`npm test`：**70/70 通过**（含 ApprovalBridge、QuestionBridge、API decision 测试）。
+`npm test`：**71/71 通过**（含 ApprovalBridge、QuestionBridge、API decision 测试）。
 
 ## 4 真机验证（2026-11-15 18:35）
 
@@ -60,12 +60,21 @@ body: {"decision":"allowed-once"} | {"decision":"rejected"}
 
 结论：**手机审批 → DSH 回执链路通过**。
 
-## 5 待验证
+## 5 边界验证
 
-1. 桌面先点允许，手机后提交 → `conflict`；
-2. 插件重启后旧 pending → `expired`；
-3. 拒绝路径（本次只测了允许）；
-4. user-questions 的 phone answer（V03 的 user-questions live capture 尚未完成）。
+1. **手机拒绝**：✅ 2026-11-15 在 `m4-edge` 隔离 profile 通过（测试 Web UI 产生 pending，测试网关同一 PWA 接口提交 rejected）：
+   - action `act_30113e39-9455-4fbb-8e4c-78b557bbd316`
+   - `status=decided / decision=mobile / outcome=rejected`
+   - `probe-reject.txt` 不存在
+   - 证据：`docs/evidence/m4-edge/reject-mobile.json`
+2. **桌面先允许 → 手机 conflict**：✅ 2026-11-15 在 `m4-edge` 隔离 profile 通过：
+   - action `act_8cbf995b-2a1e-4bb9-8d6e-d83db31b455c`
+   - 桌面：`status=resolved / decision=desktop / outcome=allowed-once`
+   - 手机再次提交：HTTP **409 conflict**，`current_status=resolved / current_decision=desktop`
+   - `probe-conflict.log` 只有 1 行
+   - 证据：`docs/evidence/m4-edge/conflict-desktop-first.json`
+3. **插件重启后旧 pending → expired**：✅ API/单元覆盖（ApprovalBridge 过期测试通过）；真机进程重启场景待补（不阻塞主链路）。
+4. user-questions 的 phone answer：✅ 已在 M4-B 真机通过。
 
 ## 6 已知 UI 限制
 

@@ -86,3 +86,13 @@ test('ApprovalBridge：/v1/actions 列表与 decision API', async () => {
     store.close();
   }
 });
+
+test('ApprovalBridge：过期 action 返回 expired 且不执行', async () => {
+  const bridge = new ApprovalBridge({ ttlMs: 1 });
+  const pending = bridge.handle(fakeRequest(), () => new Promise(() => {}));
+  await new Promise((resolve) => setTimeout(resolve, 10));
+  const action = [...bridge.actions.values()][0];
+  const result = bridge.decide(action.action_id, 'allowed-once');
+  assert.equal(result.status, 'expired');
+  void pending;
+});
