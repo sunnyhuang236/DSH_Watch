@@ -1,0 +1,8 @@
+# dsh-watch M1 插件：插入一行 loader 配置。
+# 配置项：port/host（本机只读 API）、db（SQLite 路径，缺省 ~/.dsh/dsh-watch/watch.db）。
+- insert:
+    - id: dsh-watch
+      name: dsh-watch
+      config:
+        port: 7317
+        host: 127.0.0.1

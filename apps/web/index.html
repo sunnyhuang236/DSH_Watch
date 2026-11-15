@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#F3F5F1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="DSH Watch">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+  <link rel="apple-touch-icon-precomposed" sizes="180x180" href="/icons/apple-touch-icon.png">
+  <link rel="icon" href="/icons/icon-192.png" type="image/png">
+  <link rel="stylesheet" href="/styles.css">
+  <title>DSH Watch</title>
+</head>
+<body>
+  <div id="app" class="app">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">◉</span>
+        <span class="brand-name">DSH WATCH</span>
+      </div>
+      <button id="refreshBtn" class="icon-btn" type="button" aria-label="刷新">↻</button>
+    </header>
+
+    <div id="connection" class="connection hidden" role="status"></div>
+
+    <main id="view" class="view" aria-live="polite"></main>
+
+    <nav id="tabs" class="tabs" aria-label="主导航">
+      <a href="#/tasks" data-tab="tasks" class="tab active"><span class="tab-icon">◫</span><span>任务</span></a>
+      <a href="#/reminders" data-tab="reminders" class="tab"><span class="tab-icon">◔</span><span>提醒</span><span id="badge" class="badge hidden">0</span></a>
+      <a href="#/settings" data-tab="settings" class="tab"><span class="tab-icon">⚙</span><span>设置</span></a>
+    </nav>
+
+    <div id="toast" class="toast hidden" role="status"></div>
+  </div>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

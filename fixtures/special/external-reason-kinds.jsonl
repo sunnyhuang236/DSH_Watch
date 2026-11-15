@@ -1,0 +1,13 @@
+{"type":"session","version":4,"id":"session-00000000-0000-4000-8000-0000000000e2","createdAt":1770857999000,"cwd":"<workspace>","isSeeded":false,"delegationDepth":0,"agentPreset":"standard"}
+{"type":"turn/start","seq":0,"time":1770858001000,"data":{"turn":1}}
+{"type":"step/start","seq":1,"time":1770858001010,"data":{"turn":1,"step":1}}
+{"type":"turn/end","seq":2,"time":1770858001020,"data":{"turn":1,"reason":{"kind":"max-tokens"}}}
+{"type":"turn/start","seq":3,"time":1770858002000,"data":{"turn":2}}
+{"type":"step/start","seq":4,"time":1770858002010,"data":{"turn":2,"step":1}}
+{"type":"turn/end","seq":5,"time":1770858002020,"data":{"turn":2,"reason":{"kind":"blocked"}}}
+{"type":"turn/start","seq":6,"time":1770858003000,"data":{"turn":3}}
+{"type":"step/start","seq":7,"time":1770858003010,"data":{"turn":3,"step":1}}
+{"type":"turn/end","seq":8,"time":1770858003020,"data":{"turn":3,"reason":{"kind":"interrupted"}}}
+{"type":"turn/start","seq":9,"time":1770858004000,"data":{"turn":4}}
+{"type":"step/start","seq":10,"time":1770858004010,"data":{"turn":4,"step":1}}
+{"type":"turn/end","seq":11,"time":1770858004020,"data":{"turn":4,"reason":{"kind":"forked"}}}

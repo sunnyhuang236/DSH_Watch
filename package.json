@@ -1,0 +1,19 @@
+{
+  "name": "dsh-mobile-watch",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "description": "DSH 移动盯梢器：M1 数据管道（dsh-watch 插件）+ M2 网关与 PWA",
+  "scripts": {
+    "test": "node --test --test-isolation=none packages/dsh-watch/test/ packages/gateway/test/",
+    "audit:fixtures": "node tools/audit-fixtures.mjs",
+    "special:fixtures": "node tools/make-special-fixtures.mjs",
+    "replay": "node tools/replay-logs.mjs",
+    "watch": "node tools/watch-logs.mjs",
+    "gateway": "node packages/gateway/bin/gateway.mjs",
+    "pair": "node packages/gateway/bin/pair.mjs",
+    "tunnel": "node packages/gateway/bin/tunnel.mjs",
+    "m2:e2e": "node tools/m2-e2e.mjs"
+  }
+}

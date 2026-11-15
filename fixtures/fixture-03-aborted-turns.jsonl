@@ -1,0 +1,15 @@
+{"type":"session","version":4,"id":"session-c098babe-7443-4946-a436-3e74c0c6e2d9","createdAt":1767232740000,"cwd":"<workspace>","isSeeded":false,"delegationDepth":0,"agentPreset":"standard"}
+{"type":"turn/start","seq":0,"time":1767232800000,"data":{"turn":12}}
+{"type":"agent/inbox/spliced","seq":1,"time":1767232800001,"data":{"target":"next-turn","start":0,"removedCount":1,"inserted":[]}}
+{"type":"step/start","seq":2,"time":1767232800032,"data":{"turn":12,"step":1}}
+{"type":"user/message","seq":3,"time":1767232800034,"data":{"content":[{"type":"text","text":"<redacted:22 chars>"}],"source":{"kind":"user","rpcId":"1cad0d59-d415-4176-af16-7131ecf73a9c","clientTimeZone":"Asia/Shanghai"},"role":"user","id":"2fff6419-99db-4210-ac16-aeceb356d440"},"surfaceOp":"append"}
+{"type":"assistant/message","seq":4,"time":1767232809954,"data":{"turn":12,"step":1,"message":{"role":"assistant","content":[{"type":"reasoning","text":"<redacted:4652 chars>"}],"source":{"kind":"model","provider":"deepseek-official","model":"deepseek-flash"},"id":"35b7a23b-f873-420c-a700-959086e9825a"},"interrupted":true},"surfaceOp":"append"}
+{"type":"step/end","seq":5,"time":1767232809955,"data":{"turn":12,"step":1}}
+{"type":"turn/end","seq":6,"time":1767232809956,"data":{"turn":12,"reason":{"kind":"aborted","reason":{"kind":"user"}}}}
+{"type":"turn/start","seq":7,"time":1767232827155,"data":{"turn":13}}
+{"type":"agent/inbox/spliced","seq":8,"time":1767232827155,"data":{"target":"next-turn","start":0,"removedCount":1,"inserted":[]}}
+{"type":"step/start","seq":9,"time":1767232827186,"data":{"turn":13,"step":1}}
+{"type":"user/message","seq":10,"time":1767232827188,"data":{"content":[{"type":"text","text":"<redacted:44 chars>"}],"source":{"kind":"user","rpcId":"a5db974d-16ca-43fd-a38f-51929097d29c","clientTimeZone":"Asia/Shanghai"},"role":"user","id":"6ff4aa3c-3015-45e2-a3b6-e715d550022f"},"surfaceOp":"append"}
+{"type":"assistant/message","seq":11,"time":1767232834820,"data":{"turn":13,"step":1,"message":{"role":"assistant","content":[{"type":"reasoning","text":"<redacted:3566 chars>"}],"source":{"kind":"model","provider":"deepseek-official","model":"deepseek-flash"},"id":"9441d0b6-bff3-47ac-a4be-354e07d45ffb"},"interrupted":true},"surfaceOp":"append"}
+{"type":"step/end","seq":12,"time":1767232834821,"data":{"turn":13,"step":1}}
+{"type":"turn/end","seq":13,"time":1767232834822,"data":{"turn":13,"reason":{"kind":"aborted","reason":{"kind":"user"}}}}

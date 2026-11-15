@@ -1,0 +1,10 @@
+# 本地数据与日志
+.data/
+*.db
+*.db-wal
+*.db-shm
+node_modules/
+docs/backup-m1-install/
+docs/evidence/
+
+*.log

@@ -1,0 +1,167 @@
+{
+ "generatedAt": "2026-11-05T13:50:19.889Z",
+ "note": "真实窗口来自本机会话日志（已脱敏）；synthetic 样本按 DSH 源码事件形状构造，仅用于 M1 状态机/契约回归。",
+ "samples": [
+  {
+   "file": "fixtures/special/real-multi-approval-window.jsonl",
+   "kind": "real-multi-approval",
+   "synthetic": false,
+   "sha256": "e8e44fe81bb5f52a4f710e3975747ea6e4718f6bbfbe2b8a1d2ac0930db40f86",
+   "expected": {
+    "taskId": "session-95fdbe11-ffa0-4283-a015-4301f6d4899f",
+    "state": "running",
+    "summary": "运行中 · pwsh",
+    "events": 58,
+    "ignored": 0,
+    "errors": 0
+   },
+   "sourceSessionIdSha8": "13b06b41",
+   "sourceDelegationDepth": 0,
+   "originalRanges": [
+    [
+     2947,
+     3011
+    ]
+   ],
+   "eventCount": 58,
+   "purpose": "真实多审批窗口（同一 turn）"
+  },
+  {
+   "file": "fixtures/special/real-question-wait-window.jsonl",
+   "kind": "real-question-wait",
+   "synthetic": false,
+   "sha256": "17f70dfeb48a7ea2528f03f95cffd514980c410bab19f0f60cbbc9063055eee4",
+   "expected": {
+    "taskId": "session-2a8593d4-f4af-4f12-ad99-051fa6adfb7e",
+    "state": "running",
+    "summary": "运行中",
+    "events": 21,
+    "ignored": 1,
+    "errors": 0
+   },
+   "sourceSessionIdSha8": "987b3f53",
+   "sourceDelegationDepth": 0,
+   "originalRanges": [
+    [
+     33,
+     56
+    ]
+   ],
+   "eventCount": 22,
+   "purpose": "真实提问等待窗口",
+   "waitMs": 52515
+  },
+  {
+   "file": "fixtures/special/real-llm-retry-window.jsonl",
+   "kind": "real-llm-retry",
+   "synthetic": false,
+   "sha256": "adaf29c99cd71ee95de93285b0e3acc3d37064c815ce7cac297c84a82a0afd2d",
+   "expected": {
+    "taskId": "session-95fdbe11-ffa0-4283-a015-4301f6d4899f",
+    "state": "running",
+    "summary": "运行中 · 步骤 21",
+    "events": 30,
+    "ignored": 0,
+    "errors": 0
+   },
+   "sourceSessionIdSha8": "13b06b41",
+   "sourceDelegationDepth": 0,
+   "originalRanges": [
+    [
+     3351,
+     3384
+    ]
+   ],
+   "eventCount": 30,
+   "purpose": "真实 LLM 重试窗口（turn 最终完成）",
+   "retryEvents": 6
+  },
+  {
+   "file": "fixtures/special/synthetic-failed-turn.jsonl",
+   "kind": "synthetic",
+   "synthetic": true,
+   "sha256": "7f79f4a21929977a208b70e5976073c1553e29b322032ed54bf1d6babf7f45aa",
+   "expected": {
+    "taskId": "session-00000000-0000-4000-8000-0000000000f1",
+    "state": "failed",
+    "summary": "执行失败",
+    "events": 7,
+    "ignored": 0,
+    "errors": 0
+   },
+   "note": "DSH 源码：turn/end reason={kind:\"error\",error:{message,code}}（dsh-agent-loop/lib/index.js:1014 附近）",
+   "eventCount": 7,
+   "external": false
+  },
+  {
+   "file": "fixtures/special/synthetic-approval-outcomes.jsonl",
+   "kind": "synthetic",
+   "synthetic": true,
+   "sha256": "92b2640d1bba671b50cfbb71f2fc24927418a68aca612a7be5b11e41b69ed02f",
+   "expected": {
+    "taskId": "session-00000000-0000-4000-8000-0000000000a1",
+    "state": "succeeded",
+    "summary": "已完成",
+    "events": 22,
+    "ignored": 0,
+    "errors": 0
+   },
+   "note": "DSH 源码：approval outcome ∈ {allowed-once,rejected,cancelled,unavailable}（dsh-user-approval/lib/types/index.js:15）",
+   "eventCount": 22,
+   "external": false
+  },
+  {
+   "file": "fixtures/special/synthetic-question-aborted.jsonl",
+   "kind": "synthetic",
+   "synthetic": true,
+   "sha256": "3b1492512aa23cc171df669210c8c9f7f11b314bb05d56ed90fba6457bc0e1e2",
+   "expected": {
+    "taskId": "session-00000000-0000-4000-8000-0000000000c1",
+    "state": "cancelled",
+    "summary": "已取消",
+    "events": 4,
+    "ignored": 0,
+    "errors": 0
+   },
+   "note": "等待提问期间被取消：tool/call 无 tool/result，随后 turn/end aborted（等待必须被清理）",
+   "eventCount": 4,
+   "external": false
+  },
+  {
+   "file": "fixtures/special/external-observed-failed-turn.jsonl",
+   "kind": "external-observed",
+   "synthetic": true,
+   "sha256": "99eded5c534c35c6d451eb96f2598ce5febec1530ff16f230725f8010db94851",
+   "expected": {
+    "taskId": "session-00000000-0000-4000-8000-0000000000e1",
+    "state": "failed",
+    "summary": "执行失败",
+    "events": 10,
+    "ignored": 0,
+    "errors": 0
+   },
+   "note": "外部实测 failed 终态：mimi-remote live-capture（2026-09-18, DSH 0.1.5-rc.2）turnEndReasonsObserved 含 kind=error/error.code=UNKNOWN；commit 说明实测 MISSING_CREDENTIAL；dsh-unstuck 生产插件同款字段。样本自建，不复制第三方文件。",
+   "eventCount": 10,
+   "external": true,
+   "source": "mimi-remote (third-party live-capture fixture, NOASSERTION; facts cited only) + dsh-unstuck (MIT)"
+  },
+  {
+   "file": "fixtures/special/external-reason-kinds.jsonl",
+   "kind": "external-reason-kinds",
+   "synthetic": true,
+   "sha256": "719789b7ab90e1e6657b1741ac76c419ca41899e32b4ceb54bc4967ae53307f1",
+   "expected": {
+    "taskId": "session-00000000-0000-4000-8000-0000000000e2",
+    "state": "cancelled",
+    "summary": "已取消",
+    "events": 12,
+    "ignored": 0,
+    "errors": 0
+   },
+   "note": "源码 reason 枚举（max-tokens/blocked/interrupted/forked）映射验证：第三方客户端收口表（mimi-remote #861）与 dsh-unstuck 判定一致；样本自建。",
+   "eventCount": 12,
+   "external": true,
+   "source": "DSH 0.2.1-alpha.1 source enums (mimi-remote #861) + dsh-unstuck ABNORMAL_KINDS (MIT)"
+  }
+ ]
+}

@@ -1,0 +1,8 @@
+{"type":"session","version":4,"id":"session-00000000-0000-4000-8000-0000000000f1","createdAt":1770681599000,"cwd":"<workspace>","isSeeded":false,"delegationDepth":0,"agentPreset":"standard"}
+{"type":"turn/start","seq":0,"time":1770681600000,"data":{"turn":1}}
+{"type":"step/start","seq":1,"time":1770681600010,"data":{"turn":1,"step":1}}
+{"type":"assistant/attempt","seq":2,"time":1770681600020,"data":{"turn":1,"step":1,"stream":[{"type":"chunk","time":1770681600020,"chunk":{"type":"finish","reason":{"kind":"error","failure":{"message":"synthetic provider failure","code":"PROVIDER_ERROR"}}}}]}}
+{"type":"llm/retry","seq":3,"time":1770681600030,"data":{"retryId":"retry-syn-1","turn":1,"step":1,"provider":"deepseek-official","mode":"normal","policyKey":"synthetic","retry":1,"maxRetries":3,"delayMs":1000,"failure":{"message":"synthetic provider failure","code":"PROVIDER_ERROR"}}}
+{"type":"llm/retry-started","seq":4,"time":1770681601040,"data":{"retryId":"retry-syn-1","turn":1,"step":1,"retry":1}}
+{"type":"assistant/attempt","seq":5,"time":1770681601100,"data":{"turn":1,"step":1,"stream":[{"type":"chunk","time":1770681601100,"chunk":{"type":"finish","reason":{"kind":"error","failure":{"message":"synthetic provider failure","code":"PROVIDER_ERROR"}}}}]}}
+{"type":"turn/end","seq":6,"time":1770681601200,"data":{"turn":1,"reason":{"kind":"error","error":{"message":"synthetic provider failure","code":"PROVIDER_ERROR"}}}}

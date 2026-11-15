@@ -1,0 +1,38 @@
+name: Build DSHWatch unsigned IPA
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      - name: Generate Xcode project
+        working-directory: apps/ios
+        run: xcodegen generate
+      - name: Build unsigned app
+        working-directory: apps/ios
+        run: |
+          xcodebuild \
+            -project DSHWatch.xcodeproj \
+            -scheme DSHWatch \
+            -configuration Release \
+            -sdk iphoneos \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            build
+      - name: Package unsigned IPA
+        working-directory: apps/ios
+        run: |
+          mkdir -p Payload
+          cp -R build/Build/Products/Release-iphoneos/DSHWatch.app Payload/
+          zip -r DSHWatch-unsigned.ipa Payload
+      - uses: actions/upload-artifact@v4
+        with:
+          name: DSHWatch-unsigned-ipa
+          path: apps/ios/DSHWatch-unsigned.ipa

@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DSH Watch · 调试面板入口</title>
+<style>
+  body { margin:0; font:14px/1.6 ui-sans-serif,system-ui,"Segoe UI",sans-serif; background:#0f172a; color:#e5edff; padding:40px; }
+  a { color:#38bdf8; } code { background:#111c33; padding:2px 6px; border-radius:6px; }
+</style>
+</head>
+<body>
+  <h1>DSH Watch · M1 调试面板</h1>
+  <p>面板由插件或回放工具在 <code>http://127.0.0.1:7317/</code> 提供。</p>
+  <p>若尚未启动：</p>
+  <pre><code>cd dsh-mobile-watch
+node tools/replay-logs.mjs     # 回放历史会话
+node tools/watch-logs.mjs      # 近实时 tail 正在运行的会话</code></pre>
+  <p>然后打开 <a href="http://127.0.0.1:7317/">http://127.0.0.1:7317/</a></p>
+</body>
+</html>

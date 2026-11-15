@@ -1,0 +1,18 @@
+{
+  "name": "dsh-watch-gateway",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "DSH Watch M2 gateway: pairing, device auth, /v1 reverse proxy, PWA hosting, Web Push",
+  "license": "MIT",
+  "main": "lib/index.mjs",
+  "scripts": {
+    "start": "node bin/gateway.mjs",
+    "pair": "node bin/pair.mjs",
+    "test": "node --test --test-isolation=none test/"
+  },
+  "dependencies": {
+    "qrcode": "^1.5.4",
+    "web-push": "^4.0.0"
+  }
+}

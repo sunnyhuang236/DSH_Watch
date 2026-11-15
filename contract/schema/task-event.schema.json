@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://dsh-mobile-watch.local/schema/task-event.schema.json",
+  "title": "TaskEvent",
+  "description": "M1 契约 v1.0（冻结）：归一化事件。event_id = task_id + ':' + DSH seq（全局唯一、可去重）。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["event_id", "task_id", "run_id", "seq", "type", "occurred_at", "payload"],
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "event_id": { "type": "string", "minLength": 3 },
+    "task_id": { "type": "string", "minLength": 1 },
+    "run_id": { "type": ["string", "null"] },
+    "seq": { "type": "integer", "minimum": 0, "description": "DSH 会话内事件序号，连续递增" },
+    "type": {
+      "enum": [
+        "run_started", "run_finished", "step_started", "step_finished",
+        "tool_started", "tool_finished", "assistant", "user_message",
+        "approval_requested", "approval_decided", "job_started", "job_finished",
+        "title", "subagent", "team", "goal", "diagnostic", "unknown"
+      ]
+    },
+    "occurred_at": { "type": "integer", "description": "DSH event.time，epoch ms" },
+    "payload": { "type": "object" }
+  }
+}

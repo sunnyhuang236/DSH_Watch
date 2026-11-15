@@ -1,0 +1,9 @@
+{
+  "name": "dsh-watch",
+  "description": "本地只读任务盯梢：订阅 DSH 会话事件、归一化、本地库、/v1 只读 API 与浏览器调试面板",
+  "version": "0.1.0",
+  "entry": {
+    "name": "dsh-watch",
+    "inject": ["sessions", "agents"]
+  }
+}

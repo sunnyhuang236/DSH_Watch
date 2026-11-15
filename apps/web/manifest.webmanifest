@@ -1,0 +1,17 @@
+{
+  "name": "DSH Watch",
+  "short_name": "DSH Watch",
+  "description": "DSH 任务盯梢器：任务完成、失败或需要你处理时提醒",
+  "lang": "zh-CN",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F3F5F1",
+  "theme_color": "#F3F5F1",
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
