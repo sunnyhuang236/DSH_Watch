@@ -80,8 +80,8 @@ func relativeTime(_ value: Int64) -> String {
     return formatter.localizedString(for: dateFromMillis(value) ?? Date(), relativeTo: Date())
 }
 
-func absoluteTime(_ value: Int64) -> String {
-    guard let date = dateFromMillis(value) else { return "暂无" }
+func absoluteTime(_ value: Int64?) -> String {
+    guard let value, let date = dateFromMillis(value) else { return "暂无" }
     let formatter = DateFormatter()
     formatter.locale = Locale(identifier: "zh_CN")
     formatter.dateFormat = "MM/dd HH:mm"

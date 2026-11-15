@@ -7,6 +7,11 @@ struct APIError: LocalizedError {
     var errorDescription: String? { message }
 }
 
+private struct APIErrorEnvelope: Decodable {
+    struct Inner: Decodable { let code: String?; let message: String? }
+    let error: Inner?
+}
+
 final class APIClient {
     let baseURL: URL
     var token: String?
@@ -38,11 +43,7 @@ final class APIClient {
             throw APIError(status: 0, code: "no_response", message: "没有收到服务器响应")
         }
         guard (200..<300).contains(http.statusCode) else {
-            struct Envelope: Decodable {
-                struct Inner: Decodable { let code: String?; let message: String? }
-                let error: Inner?
-            }
-            let envelope = try? JSONDecoder().decode(Envelope.self, from: data)
+            let envelope = try? JSONDecoder().decode(APIErrorEnvelope.self, from: data)
             throw APIError(
                 status: http.statusCode,
                 code: envelope?.error?.code ?? "http_\(http.statusCode)",
