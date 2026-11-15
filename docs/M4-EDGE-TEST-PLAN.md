@@ -1,6 +1,6 @@
 # M4 拒绝/冲突安全测试方案
 
-日期：2026-11-15｜状态：**部分执行（refusal/conflict 通过；expired 由 API/单元测试覆盖；主 profile 未改）**｜适用版本：DSH 0.2.2-rc.1 / `dsh-watch` 0.1.0 / M2 网关
+日期：2026-11-15｜状态：**已执行（refusal / conflict / expired 全部通过）**｜适用版本：DSH 0.2.2-rc.1 / `dsh-watch` 0.1.0 / M2 网关
 
 ## 0. 目标与结论
 

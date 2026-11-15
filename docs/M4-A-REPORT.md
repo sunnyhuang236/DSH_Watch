@@ -1,6 +1,6 @@
 # M4-A 手机审批（后端 + PWA 卡片）
 
-日期：2026-11-15｜状态：**手机审批允许/拒绝/conflict 真机通过**；M4-B 问答桥真机通过；71/71 测试通过；插件重启 expired 已由单元/API 覆盖，真机待补。
+日期：2026-11-15｜状态：**手机审批允许/拒绝/冲突 + 插件重启 expired 均已真机/隔离环境通过**；M4-B 问答桥真机通过；71/71 测试通过。
 
 ## 1 范围
 
@@ -73,7 +73,11 @@ body: {"decision":"allowed-once"} | {"decision":"rejected"}
    - 手机再次提交：HTTP **409 conflict**，`current_status=resolved / current_decision=desktop`
    - `probe-conflict.log` 只有 1 行
    - 证据：`docs/evidence/m4-edge/conflict-desktop-first.json`
-3. **插件重启后旧 pending → expired**：✅ API/单元覆盖（ApprovalBridge 过期测试通过）；真机进程重启场景待补（不阻塞主链路）。
+3. **插件重启后旧 pending → expired**：✅ 2026-11-15 在 `m4-edge` 隔离 profile 通过：
+   - 创建 pending `act_1e78a4ba-23fd-49f2-8bcd-76522dfb05e5`；
+   - 重启测试插件后再提交：HTTP **410 expired**；
+   - `probe-expired.txt` 不存在，未补执行；
+   - 证据：`docs/evidence/m4-edge/expired-plugin-restart.json`。
 4. user-questions 的 phone answer：✅ 已在 M4-B 真机通过。
 
 ## 6 已知 UI 限制
