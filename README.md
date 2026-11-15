@@ -57,6 +57,8 @@ npm run pair                              # 另开终端：打印二维码/8 位
 | `docs/M3-REPORT.md` / `docs/M3-DEMO-CHECKLIST.md` | M3 原生展示版报告与 60 秒演示清单 |
 | `docs/M4-A-REPORT.md` / `docs/M4-B-REPORT.md` / `docs/V03-APPROVAL-CAPABILITY.md` | M4 手机审批、问答桥与 V03 核查 |
 | `docs/M4-C-REPORT.md` | M4-C 轨迹/费用/子代理展示 |
+| `docs/M4-EDGE-TEST-PLAN.md` | M4 拒绝/冲突安全测试方案（独立 profile，默认不执行） |
+| `docs/DEPLOYMENT.md` / `docs/AI-DEPLOY.md` | 人工部署指南 + 给 AI 的整包部署说明 |
 | `docs/PRODUCT-DIFFERENTIATORS.md` | 产品差异化要点（状态语义/通知质量/工程证据/M4 hooks） |
 | `docs/evidence/` | 测试、样本、E2E、截图等证据 |
 

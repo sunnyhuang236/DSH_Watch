@@ -1,6 +1,6 @@
 # M4 拒绝/冲突安全测试方案
 
-日期：2026-11-15｜状态：**设计稿（未执行）**｜适用版本：DSH 0.2.2-rc.3 / `dsh-watch` 0.1.0 / M2 网关
+日期：2026-11-15｜状态：**设计稿（未执行）**｜适用版本：DSH 0.2.2-rc.1 / `dsh-watch` 0.1.0 / M2 网关
 
 ## 0. 目标与结论
 
@@ -56,6 +56,7 @@
 | 测试根目录 | `C:\Users\22472\AppData\Local\Temp\dsh-m4-edge` | 所有测试数据只在这里 |
 | 测试 workspace | `...\dsh-m4-edge\workspace` | 只允许在这里写 `probe-*` |
 | 测试会话存储 | `...\dsh-m4-edge\sessions` | 覆盖 `session-persistence-jsonl.root`，不写主 `~/.dsh/sessions` |
+| 测试 KV/workspace 存储 | `...\dsh-m4-edge\storages` | 覆盖 `storage-json.root`，不写主 `~/.dsh/storages` |
 | 测试 `dsh-watch` DB | `...\dsh-m4-edge\watch.db` | 不写主 `~/.dsh/dsh-watch/watch.db` |
 | 测试网关 state | `...\dsh-m4-edge\gateway-state.json` | 不复用主网关设备 token |
 | 测试 DSH Web UI | `http://127.0.0.1:18080` | PC 浏览器打开 |
@@ -79,7 +80,7 @@ iPhone Safari/PWA
 ### 2.3 为什么这是「等价安全沙箱」
 
 - **进程/配置隔离**：测试实例是独立 DSH 进程、独立 profile 配置层、独立端口、独立插件数据库、独立网关 state；主 profile 文件没有任何写入路径（home 级 patch 只读继承）；
-- **会话隔离**：`session-persistence-jsonl.root` 指到临时目录，测试会话不写入 `~/.dsh/sessions`；
+- **会话隔离**：`session-persistence-jsonl.root` 与 `storage-json.root` 都指到临时目录，测试会话与 workspace 状态不写入主 `~/.dsh/sessions` / `~/.dsh/storages`；
 - **权限隔离**：测试 profile 没有 auto-review；默认 base 配置是 `workspace-write + ask`，测试会话使用 `read-only` 预设，只会在用户点击「允许」后才升权；
 - **桌面端等价性**：测试 Web UI 与 DSH Desktop 审批卡复用同一个 `@deepseek-ai/dsh-client-ui-approval` client 插件；本方案用测试 Web UI 作为「桌面」端，避免触碰主 Desktop profile；
 - **数据最小化**：测试工具只写临时 workspace 的两个固定文件，不碰仓库源码、不读取凭证、不访问外网；
@@ -98,7 +99,7 @@ iPhone Safari/PWA
 | U5 | 确认测试实例可使用现有 Magpie provider（模型 `group/ds-flash-wkbd`）并接受极少量测试 token 消耗 | 主 DSH 当前使用同一 provider；测试 profile 继承 `~/.dsh/cordis.patch.yml` | 在测试 profile 的 patch 中改 provider/model，或使用已有可用模型 |
 | U6 | 确认测试 profile 不包含 `@deepseek-ai/dsh-experimental-auto-review`，权限选择器无「自动审查」 | §4.4 的 `--dump-config` 检查 | 停止，重建 `m4-edge` |
 | U7 | 确认不安装/不修改 `ui-theme` 及任何 UI 插件 | 只执行本方案命令；`m4-edge/package.json` 不应出现 UI 插件 | 停止并检查 |
-| U8 | 确认测试会话存储、watch DB、网关 state 都在临时目录 | §4.4 配置检查 | 停止，修正 patch |
+| U8 | 确认测试会话存储、KV/workspace 存储、watch DB、网关 state 都在临时目录 | §4.4 配置检查 | 停止，修正 patch |
 | U9 | 确认测试工具只会写 `probe-reject.txt` / `probe-conflict.log` 两个临时文件 | 使用 §5 的固定 prompt；不运行其他 agent 任务 | 不执行测试 |
 | U10 | 确认测试后的清理与回滚步骤（§8）可接受 | 确认可删除 `m4-edge` profile 和临时目录；主 desktop profile 不做任何删除 | 不执行 |
 
@@ -186,6 +187,12 @@ Select-String -Path "$TestRoot\m4-edge-default-config.txt" -Pattern 'auto-review
   name: "@deepseek-ai/dsh-session-persistence-jsonl"
   config:
     root: "C:/Users/22472/AppData/Local/Temp/dsh-m4-edge/sessions"
+
+# 测试 projection/workspace 的 KV 存储也隔离，不写主 ~/.dsh/storages
+- id: storage-json
+  name: "@deepseek-ai/dsh-storage-json"
+  config:
+    root: "C:/Users/22472/AppData/Local/Temp/dsh-m4-edge/storages"
 
 # 测试插件使用独立端口与独立 SQLite 库
 - id: dsh-watch
@@ -289,6 +296,8 @@ node bin/pair.mjs --gateway http://127.0.0.1:18787
 - 手机已与测试网关配对；
 - 会话权限为 `read-only`。
 
+> 若环境不支持 `read-only` 沙箱（例如返回 `SANDBOX_UNAVAILABLE`），先记录环境问题并停止本轮；不要用 `danger-full-access` 绕过，后者会把审批策略变成 `never`，测不到 pending approval。
+
 #### 步骤
 
 1. 在 PC 的 `M4-EDGE-REJECT` 会话发送以下固定 prompt（只让 agent 做这一件事）：
@@ -297,7 +306,7 @@ node bin/pair.mjs --gateway http://127.0.0.1:18787
    这是隔离的 M4 手机拒绝测试，只做以下动作，不要读取其他文件、不要修改仓库：
    1) 必须使用 pwsh 工具执行：
       Set-Content -LiteralPath "C:\Users\22472\AppData\Local\Temp\dsh-m4-edge\workspace\probe-reject.txt" -Value "reject-test" -Encoding utf8
-   2) 如果返回 [sandbox: file access denied under read-only mode]，用完全相同的命令重试一次，并带上沙箱升权参数：
+   2) 如果返回沙箱拒绝（通常为 [sandbox: file access denied under read-only mode]），用完全相同的命令重试一次，并带上沙箱升权参数：
       sandbox_permissions: "workspace-write"
       justification: "M4 手机拒绝测试：把测试标记写入隔离的临时 workspace"
    3) 不要自动继续其他步骤；等待审批结果，如果被拒绝就报告“已拒绝，未写入”。
@@ -372,7 +381,7 @@ node bin/pair.mjs --gateway http://127.0.0.1:18787
    这是隔离的 M4 桌面先允许、手机后提交的冲突测试，只做以下动作，不要读取其他文件、不要修改仓库：
    1) 必须使用 pwsh 工具执行：
       Add-Content -LiteralPath "C:\Users\22472\AppData\Local\Temp\dsh-m4-edge\workspace\probe-conflict.log" -Value "executed-conflict-test" -Encoding utf8
-   2) 如果返回 [sandbox: file access denied under read-only mode]，用完全相同的命令重试一次，并带上：
+   2) 如果返回沙箱拒绝（通常为 [sandbox: file access denied under read-only mode]），用完全相同的命令重试一次，并带上：
       sandbox_permissions: "workspace-write"
       justification: "M4 桌面先允许测试：向隔离的临时 workspace 追加测试标记"
    3) 等待审批；如果被允许，只执行一次；如果被拒绝，报告“已拒绝”。
@@ -464,7 +473,7 @@ node bin/pair.mjs --gateway http://127.0.0.1:18787
 | `current_status` / `current_decision` | 不适用 | `resolved` / `desktop` |
 | 工具副作用 | 无 `probe-reject.txt` | `probe-conflict.log` 恰好 1 行 |
 
-证据文件统一放在 `dsh-mobile-watch/docs/evidence/m4-edge/`，至少包含：
+证据文件统一放在 `dsh-mobile-watch/docs/evidence/m4-edge/`（首次执行 `New-Item -ItemType Directory -Path 'dsh-mobile-watch\docs\evidence\m4-edge' -Force`），至少包含：
 
 - 手机截图：审批卡、拒绝后状态、冲突提示；
 - PC 截图：DSH 工具结果/审批卡；
