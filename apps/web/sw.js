@@ -1,5 +1,5 @@
-// DSH Watch Service Worker：PWA 缓存 + Web Push 通知 + 点击深链。
-const CACHE = 'dsh-watch-v3';
+﻿// DSH Watch Service Worker锛歅WA 缂撳瓨 + Web Push 閫氱煡 + 鐐瑰嚮娣遍摼銆?
+const CACHE = 'dsh-watch-v7';
 const SHELL = ['/', '/index.html', '/styles.css', '/app.js', '/manifest.webmanifest', '/icons/icon-192.png', '/icons/icon-512.png', '/icons/apple-touch-icon.png'];
 
 self.addEventListener('install', (event) => {
@@ -18,7 +18,7 @@ self.addEventListener('fetch', (event) => {
   const request = event.request;
   const url = new URL(request.url);
   if (request.method !== 'GET' || url.origin !== self.location.origin) return;
-  if (url.pathname.startsWith('/v1/')) return; // 业务数据永远走网络
+  if (url.pathname.startsWith('/v1/')) return; // 涓氬姟鏁版嵁姘歌繙璧扮綉缁?
   if (request.mode === 'navigate') {
     event.respondWith((async () => {
       try { return await fetch(request); } catch { return (await caches.match('/index.html')) || Response.error(); }
@@ -37,7 +37,7 @@ self.addEventListener('fetch', (event) => {
   })());
 });
 
-// ---------------- IndexedDB（与 app.js 共用 dsh-watch 库） ----------------
+// ---------------- IndexedDB锛堜笌 app.js 鍏辩敤 dsh-watch 搴擄級 ----------------
 function openDB() {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open('dsh-watch', 1);
@@ -69,11 +69,11 @@ async function idbPut(store, value) {
 }
 
 const KIND_TEXT = {
-  succeeded: { title: '任务已完成', summary: '打开 DSH Watch 查看结果' },
-  failed: { title: '任务执行失败', summary: '打开 DSH Watch 查看原因' },
-  cancelled: { title: '任务已取消', summary: '打开 DSH Watch 查看详情' },
-  waiting_input: { title: '需要你处理', summary: '任务在等你输入 · 请在电脑继续' },
-  waiting_approval: { title: '需要你处理', summary: '任务在等审批 · 请在电脑继续' },
+  succeeded: { title: '浠诲姟宸插畬鎴?, summary: '鎵撳紑 DSH Watch 鏌ョ湅缁撴灉' },
+  failed: { title: '浠诲姟鎵ц澶辫触', summary: '鎵撳紑 DSH Watch 鏌ョ湅鍘熷洜' },
+  cancelled: { title: '浠诲姟宸插彇娑?, summary: '鎵撳紑 DSH Watch 鏌ョ湅璇︽儏' },
+  waiting_input: { title: '闇€瑕佷綘澶勭悊', summary: '浠诲姟鍦ㄧ瓑浣犺緭鍏?路 璇峰湪鐢佃剳缁х画' },
+  waiting_approval: { title: '闇€瑕佷綘澶勭悊', summary: '浠诲姟鍦ㄧ瓑瀹℃壒 路 璇峰湪鐢佃剳缁х画' },
 };
 
 self.addEventListener('push', (event) => {
@@ -83,7 +83,7 @@ self.addEventListener('push', (event) => {
     const kind = payload.kind || 'unknown';
     const taskId = payload.task || '';
     const eventId = payload.event || (taskId + ':' + kind + ':' + Date.now());
-    const text = KIND_TEXT[kind] || { title: 'DSH Watch 提醒', summary: '打开查看详情' };
+    const text = KIND_TEXT[kind] || { title: 'DSH Watch 鎻愰啋', summary: '鎵撳紑鏌ョ湅璇︽儏' };
 
     const settingsRecord = await idbGet('meta', 'settings');
     const settings = settingsRecord && settingsRecord.value ? settingsRecord.value : {};
@@ -93,7 +93,7 @@ self.addEventListener('push', (event) => {
         : (kind === 'waiting_input' || kind === 'waiting_approval') ? notify.waiting !== false
           : true;
 
-    // 提醒记录始终写入（即使系统通知关闭），作为兜底
+    // 鎻愰啋璁板綍濮嬬粓鍐欏叆锛堝嵆浣跨郴缁熼€氱煡鍏抽棴锛夛紝浣滀负鍏滃簳
     await idbPut('reminders', {
       record_id: 'evt:' + eventId,
       event_id: eventId,
@@ -109,7 +109,7 @@ self.addEventListener('push', (event) => {
     if (!enabled) return;
     const privacy = settings.hideContent !== false;
     await self.registration.showNotification(privacy ? 'DSH Watch' : text.title, {
-      body: privacy ? '打开 DSH Watch 查看详情' : text.summary,
+      body: privacy ? '鎵撳紑 DSH Watch 鏌ョ湅璇︽儏' : text.summary,
       icon: '/icons/icon-192.png',
       badge: '/icons/icon-192.png',
       tag: 'dsh-watch:' + eventId,
@@ -136,3 +136,6 @@ self.addEventListener('notificationclick', (event) => {
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') self.skipWaiting();
 });
+
+
+

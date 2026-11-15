@@ -4,7 +4,10 @@ DSH 移动盯梢器的代码仓库：电脑上运行 DSH 长任务，手机随�
 
 - **M1 数据管道**：`dsh-watch` 插件订阅 DSH 事件 → 归一化 → 状态机 → SQLite → 只读 `/v1` API + 调试面板；契约 **m1-v1.1 已冻结**，42 项测试、13 份回归样本、真实 DSH 0.2.2-rc.1 内加载与重启自动加载已验证。
 - **M2 可用版**：`dsh-watch-gateway`（配对 / 设备凭证 / `/v1` 反代 / PWA 托管 / VAPID Web Push / cloudflared 隧道）+ PWA（配对/任务/详情/提醒/设置、Service Worker、安装引导、缓存）；21 项网关测试 + 本地 E2E + **iPhone 17 Pro Max 真机 V06 20/20 到达（100%）**。
-- **M3 展示版（进行中）**：`apps/ios/DSHWatch` SwiftUI 源码 + XcodeGen + GitHub Actions 未签名 IPA workflow + 60 秒演示清单；Windows 无 Xcode，待 CI 构建与真机签名验证。
+- **M3 展示版（已完成）**：`apps/ios/DSHWatch` SwiftUI 源码 + XcodeGen + GitHub Actions 未签名 IPA + Sideloadly 真机安装；任务列表/详情/提醒记录/断网缓存与 iPhone 热点局域网直连均已验证（7 天免费签名到期续签为未来维护项）。
+- **M4-A 手机审批（真机通过）**：插件审批桥 + 网关 `/v1/actions` + PWA 审批卡片；手机点击“允许一次”后 `decision=mobile / outcome=allowed-once`，任务恢复运行。
+- **M4-B 问答桥（真机通过）**：插件 `user-questions/request` 桥 + PWA 问答卡片；70/70 测试通过，手机选择「手机回答」后 `decision=mobile`、`status=answered`，DSH 工具收到答案并继续。
+- **M4-C 轨迹/费用/子代理（真机通过）**：轨迹按轮次折叠、最近/异常展开；费用缺失显示“暂无数据”；子代理数量/深度/状态展示，缓存升级 `dsh-watch-v7`。
 
 ```
 packages/dsh-watch/     DSH 插件：订阅事件 → 归一化 → 状态机 → SQLite → /v1 API + 调试面板
@@ -52,6 +55,8 @@ npm run pair                              # 另开终端：打印二维码/8 位
 | `docs/M2-P0-HARDENING.md` / `docs/M2-SECURITY-REVIEW.md` | P0 生产化硬化与安全复查 |
 | `docs/P0-SUMMARY.md` | P0 一页汇总（六项交付、实测时间线、当前状态） |
 | `docs/M3-REPORT.md` / `docs/M3-DEMO-CHECKLIST.md` | M3 原生展示版报告与 60 秒演示清单 |
+| `docs/M4-A-REPORT.md` / `docs/M4-B-REPORT.md` / `docs/V03-APPROVAL-CAPABILITY.md` | M4 手机审批、问答桥与 V03 核查 |
+| `docs/M4-C-REPORT.md` | M4-C 轨迹/费用/子代理展示 |
 | `docs/PRODUCT-DIFFERENTIATORS.md` | 产品差异化要点（状态语义/通知质量/工程证据/M4 hooks） |
 | `docs/evidence/` | 测试、样本、E2E、截图等证据 |
 

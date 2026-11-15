@@ -327,6 +327,33 @@ export function createGateway({ store, upstream = 'http://127.0.0.1:7317', publi
         }
         return;
       }
+
+      // M4 审批 action：GET 列表/详情，POST 手机一次性决定
+      const isActionRead = method === 'GET' && (pathname === '/v1/actions' || pathname.startsWith('/v1/actions/'));
+      const isActionDecision = method === 'POST' && /^\/v1\/actions\/[^/]+\/decision$/.test(pathname);
+      const isQuestionRead = method === 'GET' && (pathname === '/v1/questions' || pathname.startsWith('/v1/questions/'));
+      const isQuestionAnswer = method === 'POST' && /^\/v1\/questions\/[^/]+\/answer$/.test(pathname);
+      if (isActionRead || isActionDecision || isQuestionRead || isQuestionAnswer) {
+        try {
+          const body = (isActionDecision || isQuestionAnswer) ? await readBody(req) : null;
+          const target = upstream + pathname + (url.search || '');
+          const response = await fetch(target, {
+            method,
+            headers: { 'Content-Type': 'application/json' },
+            body: body ? JSON.stringify(body) : undefined,
+            signal: AbortSignal.timeout(5000),
+          });
+          const text = await response.text();
+          res.statusCode = response.status;
+          res.setHeader('Content-Type', response.headers.get('content-type') || 'application/json; charset=utf-8');
+          res.setHeader('Cache-Control', 'no-store');
+          res.setHeader('Access-Control-Allow-Origin', '*');
+          res.end(text);
+        } catch (error) {
+          sendError(res, 503, 'upstream_unavailable', 'dsh-watch upstream unavailable');
+        }
+        return;
+      }
       sendError(res, 404, 'not_found', 'not found');
       return;
     }

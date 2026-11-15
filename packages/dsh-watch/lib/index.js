@@ -48,6 +48,19 @@ export function apply(ctx, config = {}) {
     };
   }, 'dsh-watch.listeners');
 
+  // M4-A 审批桥：先于远程 UI 进入 waterfall，但始终调用 next() 保留桌面审批；
+  // 手机 decision 与桌面结果竞速，先到者生效。
+  ctx.effect(() => {
+    const dispose = ctx.on('approval/request', (request, next) => runtime.onApproval(request, next), { global: true, prepend: true });
+    return () => { try { if (typeof dispose === 'function') dispose(); } catch { /* ignore */ } };
+  }, 'dsh-watch.approval-bridge');
+
+  // M4-B 问答桥：同样先于远程 UI 进入 waterfall，但保留 next() 给桌面回答。
+  ctx.effect(() => {
+    const dispose = ctx.on('user-questions/request', (request, next) => runtime.onQuestion(request, next), { global: true, prepend: true });
+    return () => { try { if (typeof dispose === 'function') dispose(); } catch { /* ignore */ } };
+  }, 'dsh-watch.question-bridge');
+
   // 启动时把 DSH 内存里已加载会话的历史事件回填（幂等；live 事件会继续追加），
   // 并把当前 live agent 的 status 写入快照（agent/status 不落盘，错过启动窗口就永远 unknown）。
   ctx.effect(() => {

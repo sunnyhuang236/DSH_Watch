@@ -445,10 +445,14 @@ async function renderTask(params) {
   const cached = appState.tasks.find((item) => item.task_id === taskId) || (await idbGet('tasks', taskId));
   let task = cached;
   let events = [];
+  let actions = [];
+  let questions = [];
   try {
     task = await api('/v1/tasks/' + encodeURIComponent(taskId));
     const eventPage = await api('/v1/tasks/' + encodeURIComponent(taskId) + '/events?after_seq=-1&limit=120');
     events = eventPage.events || [];
+    try { const actionPage = await api('/v1/actions?task_id=' + encodeURIComponent(taskId)); actions = actionPage.actions || []; } catch { /* M4 未启用时忽略 */ }
+    try { const questionPage = await api('/v1/questions?task_id=' + encodeURIComponent(taskId)); questions = questionPage.questions || []; } catch { /* M4-B 未启用时忽略 */ }
     await idbPut('tasks', task);
   } catch (error) {
     if (!task) { view.innerHTML = emptyState('⚠', '无法加载任务', '连接电脑后重试。'); return; }
@@ -462,12 +466,16 @@ async function renderTask(params) {
   const waiting = task.waiting
     ? `<div class="wait-banner"><b>需要在电脑处理</b>${esc(waitingText(task))}</div>`
     : '';
+  const approval = approvalCard(actions);
+  const question = questionCard(questions);
   const ended = ['succeeded', 'failed', 'cancelled'].includes(task.state);
   view.innerHTML = `
     ${highlight}
     <div class="detail-head"><h1>${esc(task.title || task.task_id)}</h1><span class="chip ${meta.cls}">${meta.symbol} ${meta.label}</span></div>
     <p class="meta-line">数据更新于 ${esc(fmtTime(task.updated_at))}</p>
     ${waiting}
+    ${approval}
+    ${question}
     <section class="panel card">
       <h2>当前步骤</h2>
       <p>${task.current_step != null ? '步骤 ' + task.current_step : '暂无步骤信息'}${task.current_tool ? ' · ' + esc(task.current_tool) : ''}</p>
@@ -483,19 +491,137 @@ async function renderTask(params) {
         <dt>最近活动</dt><dd>${esc(fmtTime(task.last_activity_at))}</dd>
         <dt>结束</dt><dd>${esc(fmtTime(task.ended_at))}</dd>
         <dt>执行</dt><dd>${esc(task.run_id || '暂无')}</dd>
-        <dt>子代理</dt><dd>${task.delegation_depth ? '深度 ' + task.delegation_depth : '无'}</dd>
+        <dt>子代理</dt><dd>${task.agent_count ? task.agent_count + ' 个' : '无'}${task.delegation_depth ? ' · 深度 ' + task.delegation_depth : ''}</dd>
+        <dt>父任务</dt><dd>${task.parent_task_id ? esc(task.parent_task_id) : '无'}</dd>
+        <dt>来源</dt><dd>${esc(task.origin || '暂无')}</dd>
+        <dt>代理状态</dt><dd>${esc(task.agent_state || '未知')}</dd>
+        <dt>费用</dt><dd>${task.cost == null ? '暂无数据' : esc(String(task.cost))}</dd>
         <dt>用量</dt><dd>${task.token_usage ? (task.token_usage.input_tokens + task.token_usage.output_tokens) + ' tokens' : '暂无数据'}</dd>
       </dl>
     </section>
-    <section class="panel card">
-      <h2>事件（最近 ${events.length} 条）</h2>
-      ${events.length ? events.slice().reverse().map((event) => `<div class="event"><div><span class="etype">${esc(EVENT_LABELS[event.type] || event.type)}</span> <span class="etime">${esc(fmtClock(event.occurred_at))} · #${event.seq}</span></div></div>`).join('') : '<p class="muted small">暂无事件</p>'}
-    </section>`;
+    ${trajectorySection(events)}`;
+  bindApprovalActions(taskId);
+  bindQuestionActions(taskId);
   updateTabs({ name: 'task' });
 }
 
-function isWaitingKind(kind) { return kind === 'waiting_input' || kind === 'waiting_approval'; }
-function kindLabel(kind) { return ({ waiting_input: '等待你输入', waiting_approval: '等待审批', succeeded: '任务完成', failed: '任务失败', cancelled: '任务取消' })[kind] || '状态变化'; }
+function approvalCard(actions) {
+  const pending = (actions || []).filter((item) => item.status === 'pending');
+  if (!pending.length) {
+    const resolved = (actions || []).find((item) => item.status === 'decided' || item.status === 'resolved');
+    return resolved ? `<div class="approval-card resolved"><b>审批已处理</b><span>${resolved.decision === 'mobile' ? '已在手机提交' : '已在电脑处理'}</span></div>` : '';
+  }
+  return pending.map((item) => `<div class="approval-card" data-action="${esc(item.action_id)}">
+    <div class="approval-head"><b>需要你的决定</b><span class="chip waiting_approval">等待审批</span></div>
+    <p>${esc(item.display_reason && item.display_reason.zh ? item.display_reason.zh : (item.reason || ('工具 ' + item.tool_name + ' 请求执行')))}</p>
+    <div class="approval-actions">
+      <button class="btn danger" data-decision="rejected" type="button">拒绝</button>
+      <button class="btn primary" data-decision="allowed-once" type="button">允许一次</button>
+    </div>
+  </div>`).join('');
+}
+
+function bindApprovalActions(taskId) {
+  document.querySelectorAll('.approval-card[data-action]').forEach((card) => {
+    const actionId = card.dataset.action;
+    card.querySelectorAll('button[data-decision]').forEach((button) => {
+      button.addEventListener('click', async () => {
+        const decision = button.dataset.decision;
+        card.querySelectorAll('button').forEach((item) => { item.disabled = true; });
+        try {
+          const result = await api('/v1/actions/' + encodeURIComponent(actionId) + '/decision', {
+            method: 'POST', body: JSON.stringify({ decision }),
+          });
+          toast(result.status === 'accepted' ? '已提交，等待电脑确认' : '该审批已被处理');
+          await renderTask({ taskId });
+        } catch (error) {
+          toast('审批提交失败：' + (error.message || '请重试'));
+          card.querySelectorAll('button').forEach((item) => { item.disabled = false; });
+        }
+      });
+    });
+  });
+}
+
+function questionCard(questions) {
+  const pending = (questions || []).filter((item) => item.status === 'pending');
+  if (!pending.length) {
+    const resolved = (questions || []).find((item) => item.status === 'answered' || item.status === 'resolved');
+    return resolved ? `<div class="question-card resolved"><b>问答已处理</b><span>${resolved.decision === 'mobile' ? '已在手机提交' : '已在电脑回答'}</span></div>` : '';
+  }
+  return pending.map((item) => `<div class="question-card" data-qaction="${esc(item.action_id)}">
+    <div class="approval-head"><b>需要你回答</b><span class="chip waiting_input">等待答题</span></div>
+    ${item.questions.map((question) => `<div class="question-item" data-question="${esc(question.id)}">
+      <p>${esc(question.question)}</p>
+      ${question.detail ? `<small>${esc(question.detail)}</small>` : ''}
+      ${question.options && question.options.length ? `<div class="question-options">${question.options.map((option) => `<label><input type="${question.multi_select ? 'checkbox' : 'radio'}" name="q_${esc(item.action_id)}_${esc(question.id)}" data-option="${esc(option.label)}"> ${esc(option.label)}${option.description ? ` <small>${esc(option.description)}</small>` : ''}</label>`).join('')}</div>` : ''}
+      <input class="question-custom" placeholder="补充回答（可选）">
+    </div>`).join('')}
+    <button class="btn primary" data-answer type="button">提交回答</button>
+  </div>`).join('');
+}
+
+function bindQuestionActions(taskId) {
+  document.querySelectorAll('.question-card[data-qaction]').forEach((card) => {
+    const actionId = card.dataset.qaction;
+    card.querySelector('[data-answer]').addEventListener('click', async () => {
+      const answers = [];
+      card.querySelectorAll('.question-item').forEach((item) => {
+        const selected = [...item.querySelectorAll('input[data-option]:checked')].map((input) => input.dataset.option);
+        const custom = item.querySelector('.question-custom').value.trim();
+        const answer = { id: item.dataset.question, selected };
+        if (custom) answer.custom = custom;
+        answers.push(answer);
+      });
+      card.querySelectorAll('button').forEach((button) => { button.disabled = true; });
+      try {
+        const result = await api('/v1/questions/' + encodeURIComponent(actionId) + '/answer', {
+          method: 'POST', body: JSON.stringify({ answers }),
+        });
+        toast(result.status === 'accepted' ? '回答已提交，等待电脑确认' : '该问题已处理');
+        await renderTask({ taskId });
+      } catch (error) {
+        toast('回答提交失败：' + (error.message || '请重试'));
+        card.querySelectorAll('button').forEach((button) => { button.disabled = false; });
+      }
+    });
+  });
+}
+
+function trajectorySection(events) {
+  if (!events || !events.length) return '<section class="panel card"><h2>轨迹</h2><p class="muted small">暂无事件</p></section>';
+  const groups = new Map();
+  for (const event of events) {
+    const turn = event.payload && event.payload.turn;
+    const key = event.run_id || (turn != null ? 'turn:' + turn : 'other');
+    if (!groups.has(key)) groups.set(key, { key, turn, events: [] });
+    groups.get(key).events.push(event);
+  }
+  const list = [...groups.values()].sort((a, b) => {
+    const lastA = a.events[a.events.length - 1];
+    const lastB = b.events[b.events.length - 1];
+    return (lastA.seq || 0) - (lastB.seq || 0);
+  });
+  const rows = list.map((group, index) => {
+    const abnormal = group.events.some((event) => {
+      const p = event.payload || {};
+      return p.is_error === true || event.type === 'diagnostic' || event.type === 'approval_decided'
+        || p.reason_kind === 'error' || p.reason_kind === 'blocked' || p.reason_kind === 'max-tokens'
+        || p.outcome === 'rejected' || p.outcome === 'cancelled';
+    });
+    const open = index === list.length - 1 || abnormal;
+    const label = group.turn != null ? '轮次 ' + group.turn : (group.key === 'other' ? '其他事件' : '轮次');
+    const body = group.events.slice().reverse().map((event) => {
+      const p = event.payload || {};
+      const extra = p.name ? ' · ' + esc(p.name) : p.tool_name ? ' · ' + esc(p.tool_name) : p.reason_kind ? ' · ' + esc(p.reason_kind) : '';
+      return `<div class="event"><div><span class="etype">${esc(EVENT_LABELS[event.type] || event.type)}${extra}</span> <span class="etime">${esc(fmtClock(event.occurred_at))} · #${event.seq}</span></div></div>`;
+    }).join('');
+    return `<details class="trajectory-run" ${open ? 'open' : ''}><summary><b>${esc(label)}</b> <span>${group.events.length} 条事件${abnormal ? ' · <em>含异常</em>' : ''}</span></summary>${body}</details>`;
+  }).join('');
+  return `<section class="panel card"><h2>轨迹（按轮次折叠）</h2>${rows}</section>`;
+}
+
+function isWaitingKind(kind) { return kind === 'waiting_input' || kind === 'waiting_approval'; }function kindLabel(kind) { return ({ waiting_input: '等待你输入', waiting_approval: '等待审批', succeeded: '任务完成', failed: '任务失败', cancelled: '任务取消' })[kind] || '状态变化'; }
 function waitingText(task) {
   const waiting = task.waiting || {};
   if (waiting.kind === 'approval') return '等待你在电脑上批准' + (waiting.tool_name ? '「' + waiting.tool_name + '」' : '') + '；请在电脑继续。';

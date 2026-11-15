@@ -20,26 +20,94 @@ function sendError(res, statusCode, code, message) {
 }
 
 /**
- * @param {{store: import('./core/store.mjs').WatchStore, host?: string, port?: number, version?: string, logger?: any}} options
+ * @param {{store: import('./core/store.mjs').WatchStore, host?: string, port?: number, version?: string, logger?: any, approvals?: import('./core/approvals.mjs').ApprovalBridge, questions?: import('./core/questions.mjs').QuestionBridge}} options
  */
-export async function startApi({ store, host = '127.0.0.1', port = 0, version = '0.1.0', logger = null }) {
+export async function startApi({ store, host = '127.0.0.1', port = 0, version = '0.1.0', logger = null, approvals = null, questions = null }) {
   const startedAt = Date.now();
   const server = http.createServer((req, res) => {
-    try {
-      handle(req, res);
-    } catch (error) {
-      if (logger && typeof logger.error === 'function') logger.error('[dsh-watch] api error: ' + error.message);
-      if (!res.headersSent) sendError(res, 500, ERROR_CODES.INTERNAL_ERROR, 'internal error');
-    }
+    Promise.resolve()
+      .then(() => handle(req, res))
+      .catch((error) => {
+        if (logger && typeof logger.error === 'function') logger.error('[dsh-watch] api error: ' + error.message);
+        if (!res.headersSent) sendError(res, 500, ERROR_CODES.INTERNAL_ERROR, 'internal error');
+      });
   });
 
-  function handle(req, res) {
+  async function readJson(req) {
+    let text = '';
+    for await (const chunk of req) {
+      text += chunk;
+      if (text.length > 65536) throw new Error('body too large');
+    }
+    if (!text.trim()) return {};
+    return JSON.parse(text);
+  }
+
+  async function handle(req, res) {
     const method = (req.method || 'GET').toUpperCase();
     const url = new URL(req.url || '/', 'http://' + host);
     const pathname = url.pathname;
-    if (method !== 'GET' && method !== 'HEAD') {
-      res.setHeader('Allow', 'GET, HEAD');
-      sendError(res, 405, ERROR_CODES.METHOD_NOT_ALLOWED, 'only GET is supported');
+    const decisionMatch = pathname.match(/^\/v1\/actions\/([^/]+)\/decision$/);
+    const actionMatch = pathname.match(/^\/v1\/actions\/([^/]+)$/);
+    const questionAnswerMatch = pathname.match(/^\/v1\/questions\/([^/]+)\/answer$/);
+    const questionMatch = pathname.match(/^\/v1\/questions\/([^/]+)$/);
+    const isDecision = method === 'POST' && Boolean(decisionMatch);
+    const isQuestionAnswer = method === 'POST' && Boolean(questionAnswerMatch);
+    if (method !== 'GET' && method !== 'HEAD' && !isDecision && !isQuestionAnswer) {
+      res.setHeader('Allow', 'GET, HEAD, POST');
+      sendError(res, 405, ERROR_CODES.METHOD_NOT_ALLOWED, 'only GET/HEAD/POST decision is supported');
+      return;
+    }
+    // ---- M4 审批 action ----
+    if (pathname === '/v1/actions' && method === 'GET') {
+      if (!approvals) { sendError(res, 404, ERROR_CODES.NOT_FOUND, 'approval bridge not enabled'); return; }
+      const taskId = url.searchParams.get('task_id');
+      const includeResolved = url.searchParams.get('include_resolved') !== '0';
+      sendJson(res, 200, { schema_version: SCHEMA_VERSION, actions: approvals.list({ taskId, includeResolved }) });
+      return;
+    }
+    if (actionMatch && method === 'GET') {
+      if (!approvals) { sendError(res, 404, ERROR_CODES.NOT_FOUND, 'approval bridge not enabled'); return; }
+      const action = approvals.get(decodeURIComponent(actionMatch[1]));
+      if (!action) { sendError(res, 404, ERROR_CODES.NOT_FOUND, 'action not found'); return; }
+      sendJson(res, 200, action);
+      return;
+    }
+    if (decisionMatch && method === 'POST') {
+      if (!approvals) { sendError(res, 404, ERROR_CODES.NOT_FOUND, 'approval bridge not enabled'); return; }
+      let body;
+      try { body = await readJson(req); } catch (error) { sendError(res, 400, ERROR_CODES.BAD_REQUEST, 'invalid JSON body'); return; }
+      const result = approvals.decide(decodeURIComponent(decisionMatch[1]), String(body.decision || ''));
+      if (result.status === 'accepted') { sendJson(res, 200, result); return; }
+      if (result.status === 'bad_request') { sendError(res, 400, ERROR_CODES.BAD_REQUEST, 'decision must be allowed-once or rejected'); return; }
+      if (result.status === 'conflict') { sendJson(res, 409, result); return; }
+      sendJson(res, 410, result);
+      return;
+    }
+    // ---- M4-B user questions ----
+    if (pathname === '/v1/questions' && method === 'GET') {
+      if (!questions) { sendError(res, 404, ERROR_CODES.NOT_FOUND, 'question bridge not enabled'); return; }
+      const taskId = url.searchParams.get('task_id');
+      const includeResolved = url.searchParams.get('include_resolved') !== '0';
+      sendJson(res, 200, { schema_version: SCHEMA_VERSION, questions: questions.list({ taskId, includeResolved }) });
+      return;
+    }
+    if (questionMatch && method === 'GET') {
+      if (!questions) { sendError(res, 404, ERROR_CODES.NOT_FOUND, 'question bridge not enabled'); return; }
+      const action = questions.get(decodeURIComponent(questionMatch[1]));
+      if (!action) { sendError(res, 404, ERROR_CODES.NOT_FOUND, 'question not found'); return; }
+      sendJson(res, 200, action);
+      return;
+    }
+    if (questionAnswerMatch && method === 'POST') {
+      if (!questions) { sendError(res, 404, ERROR_CODES.NOT_FOUND, 'question bridge not enabled'); return; }
+      let body;
+      try { body = await readJson(req); } catch (error) { sendError(res, 400, ERROR_CODES.BAD_REQUEST, 'invalid JSON body'); return; }
+      const result = questions.answer(decodeURIComponent(questionAnswerMatch[1]), body.answers);
+      if (result.status === 'accepted') { sendJson(res, 200, result); return; }
+      if (result.status === 'bad_request') { sendError(res, 400, ERROR_CODES.BAD_REQUEST, result.message || 'invalid answers'); return; }
+      if (result.status === 'conflict') { sendJson(res, 409, result); return; }
+      sendJson(res, 410, result);
       return;
     }
     if (pathname === '/' || pathname === '/index.html') {

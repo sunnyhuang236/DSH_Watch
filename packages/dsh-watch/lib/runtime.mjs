@@ -7,6 +7,8 @@ import { Ingestor } from './core/pipeline.mjs';
 import { sessionMeta } from './core/normalize.mjs';
 import { startApi } from './api.mjs';
 import { DEFAULT_HOST, DEFAULT_PORT } from './core/contract.mjs';
+import { ApprovalBridge } from './core/approvals.mjs';
+import { QuestionBridge } from './core/questions.mjs';
 
 export const PLUGIN_VERSION = '0.1.0';
 
@@ -33,6 +35,8 @@ export function createWatchRuntime({ config = {}, logger = null, version = PLUGI
   let store = null;
   let ingestor = null;
   let api = null;
+  let approvals = null;
+  let questions = null;
   let pruneTimer = null;
   let started = false;
   let stopped = false;
@@ -56,7 +60,9 @@ export function createWatchRuntime({ config = {}, logger = null, version = PLUGI
       if (pruned.events || pruned.tasks) info('pruned old data events=' + pruned.events + ' tasks=' + pruned.tasks);
     } catch (error) { warn('prune failed', error); }
     ingestor = new Ingestor({ store, logger });
-    const startedApi = await startApi({ store, host: cfg.host, port: cfg.port, version, logger });
+    approvals = new ApprovalBridge({ logger });
+    questions = new QuestionBridge({ logger });
+    const startedApi = await startApi({ store, host: cfg.host, port: cfg.port, version, logger, approvals, questions });
     if (stopped) {
       // 启动过程中插件已被卸载：立即关闭，避免泄漏监听。
       await startedApi.close();
@@ -66,6 +72,7 @@ export function createWatchRuntime({ config = {}, logger = null, version = PLUGI
     started = true;
     pruneTimer = setInterval(() => {
       try { store.prune({ retentionDays: cfg.retentionDays }); } catch (error) { warn('periodic prune failed', error); }
+      try { approvals && approvals.prune(); questions && questions.prune(); } catch { /* ignore */ }
     }, 24 * 3600 * 1000);
     if (pruneTimer.unref) pruneTimer.unref();
     // 启动前排队的实时事件 / 会话 seed 在这里补放。
@@ -167,6 +174,24 @@ export function createWatchRuntime({ config = {}, logger = null, version = PLUGI
       const taskId = agent && agent.id;
       if (!taskId || !ingestor) return null;
       return ingestor.live(taskId, 'goal_changed', { phase: change && change.goal ? change.goal.phase : null });
+    },
+    onApproval(request, next) {
+      return approvals ? approvals.handle(request, next) : 'unavailable';
+    },
+    listActions(options) {
+      return approvals ? approvals.list(options) : [];
+    },
+    decideAction(actionId, decision) {
+      return approvals ? approvals.decide(actionId, decision) : { status: 'expired', action_id: actionId };
+    },
+    onQuestion(request, next) {
+      return questions ? questions.handle(request, next) : Promise.resolve({ answers: [] });
+    },
+    listQuestions(options) {
+      return questions ? questions.list(options) : [];
+    },
+    answerQuestion(actionId, answers) {
+      return questions ? questions.answer(actionId, answers) : { status: 'expired', action_id: actionId };
     },
     get url() { return api ? api.url : null; },
     get port() { return api ? api.port : null; },

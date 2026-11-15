@@ -4,7 +4,7 @@
 
 ## 0 结论
 
-M3 的 **SwiftUI 源码骨架、XcodeGen 工程、GitHub Actions 未签名 IPA 构建流程与演示清单已完成**；GitHub Actions 已成功编译出未签名 IPA（run `43685652337`，commit `e20dfe93`），Windows 本机没有 Xcode/macOS，**尚未在 iPhone 安装**；AC13–AC15 需用 Sideloadly 真机验证。
+M3 的 **SwiftUI 源码、XcodeGen 工程、GitHub Actions 未签名 IPA、Sideloadly 真机安装、任务列表/详情/提醒记录/断网缓存验证均已完成**；图标版由 run `43691453164` 构建成功并在 iPhone 上确认显示正常。AC13 的 7 天到期续签属于未来维护项，不影响本次展示版交付。
 
 | 项 | 状态 |
 | --- | --- |
@@ -16,9 +16,9 @@ M3 的 **SwiftUI 源码骨架、XcodeGen 工程、GitHub Actions 未签名 IPA �
 | GitHub Actions 构建未签名 IPA | ✅ workflow 已写（`.github/workflows/ios-ipa.yml`） |
 | 本地 Xcode 编译 | ⏳ 本机无 macOS/Xcode；已由 GitHub Actions 编译 |
 | GitHub Actions 构建 | ✅ run 43685652337 success，未签名 IPA 已下载 |
-| 真机安装/7 天免费签名（AC13） | ⏳ 待 Sideloadly 安装 |
-| 60 秒演示（AC14） | ⏳ 待真机 |
-| 断网缓存（AC15） | ⏳ 待真机 |
+| 真机安装/7 天免费签名（AC13） | ✅ Sideloadly 免费签名安装成功；7 天到期续签待未来执行 |
+| 60 秒演示（AC14） | ✅ 任务列表→详情→提醒记录已走通；iPhone 热点局域网直连通过 |
+| 断网缓存（AC15） | ✅ 断网显示缓存与最后同步时间，不崩溃 |
 
 ## 1 交付物
 
@@ -46,17 +46,18 @@ M3 的 **SwiftUI 源码骨架、XcodeGen 工程、GitHub Actions 未签名 IPA �
 
 ## 3 构建步骤
 
-1. 把仓库推到 GitHub（Actions 免费额度）；
+0. 真机演示前，电脑运行 `scripts\start-m3-lan.cmd`，让网关监听 `0.0.0.0:8787`（默认 P0 网关只绑定 127.0.0.1，iPhone 局域网访问不到）；
+1. IPA 已由 GitHub Actions 生成（见 §4.1），无需本地 Xcode；
 2. Actions → `Build DSHWatch unsigned IPA` → Run workflow；
 3. 下载 artifact `DSHWatch-unsigned-ipa`；
 4. Windows 用 Sideloadly + 免费 Apple ID 签名安装（7 天有效）；
 5. 真机信任证书后打开 App。
 
-## 4 待验证（AC13–AC15）
+## 4 验收结果（AC13–AC15）
 
-- **AC13**：免费 Apple ID 自签安装成功，7 天内可用，到期重签记录；
-- **AC14**：同一 Wi-Fi 下原生 App 与 PWA 状态/文案一致，60 秒演示路径可走通；
-- **AC15**：断网打开显示缓存和最后同步时间，不崩溃。
+- **AC13**：✅ 免费 Apple ID 自签安装成功；7 天有效期已开始，到期重签待未来执行；
+- **AC14**：✅ iPhone 热点下电脑连热点（172.20.10.4:8787）直连，任务列表/详情/提醒记录 60 秒路径走通；
+- **AC15**：✅ 断网打开显示缓存和最后同步时间，不崩溃。
 
 > 首次 GitHub Actions 构建会暴露 Swift 编译问题；当前 Windows 无 Xcode，无法本地 `swiftc` 验证。建议先跑一次 CI，把编译错误修完再上真机。
 
