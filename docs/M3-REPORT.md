@@ -4,7 +4,7 @@
 
 ## 0 结论
 
-M3 的 **SwiftUI 源码骨架、XcodeGen 工程、GitHub Actions 未签名 IPA 构建流程与演示清单已完成**。Windows 本机没有 Xcode/macOS，**尚未编译、未在 iPhone 安装**；AC13–AC15 需在 GitHub Actions 出 IPA 后用 Sideloadly 真机验证。
+M3 的 **SwiftUI 源码骨架、XcodeGen 工程、GitHub Actions 未签名 IPA 构建流程与演示清单已完成**；GitHub Actions 已成功编译出未签名 IPA（run `43685652337`，commit `e20dfe93`），Windows 本机没有 Xcode/macOS，**尚未在 iPhone 安装**；AC13–AC15 需用 Sideloadly 真机验证。
 
 | 项 | 状态 |
 | --- | --- |
@@ -14,8 +14,9 @@ M3 的 **SwiftUI 源码骨架、XcodeGen 工程、GitHub Actions 未签名 IPA �
 | 离线缓存 | ✅ Application Support JSON + 启动加载 |
 | 设备 token | ✅ Keychain |
 | GitHub Actions 构建未签名 IPA | ✅ workflow 已写（`.github/workflows/ios-ipa.yml`） |
-| 本地 Xcode 编译 | ⏳ 无 macOS/Xcode，未执行 |
-| 真机安装/7 天免费签名（AC13） | ⏳ 待构建后 Sideloadly |
+| 本地 Xcode 编译 | ⏳ 本机无 macOS/Xcode；已由 GitHub Actions 编译 |
+| GitHub Actions 构建 | ✅ run 43685652337 success，未签名 IPA 已下载 |
+| 真机安装/7 天免费签名（AC13） | ⏳ 待 Sideloadly 安装 |
 | 60 秒演示（AC14） | ⏳ 待真机 |
 | 断网缓存（AC15） | ⏳ 待真机 |
 

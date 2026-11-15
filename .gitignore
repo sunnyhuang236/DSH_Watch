@@ -8,3 +8,5 @@ docs/backup-m1-install/
 docs/evidence/
 
 *.log
+
+dist/
