@@ -1,4 +1,4 @@
-﻿# DSH 移动盯梢器部署指南
+# DSH 移动盯梢器部署指南
 
 适用：Windows 10/11 + DSH Desktop 0.2.2-rc.1（或兼容版本）。目标：装好 `dsh-watch` 插件、网关和 PWA，让手机能收到任务完成/失败/等待提醒。
 
@@ -26,7 +26,7 @@ npm install --prefix packages/gateway
 npm test
 ```
 
-预期：全部测试通过（当前 70/70）。
+预期：全部测试通过（当前 71/71）。
 
 ## 4 安装 DSH 插件
 
