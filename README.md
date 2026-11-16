@@ -79,6 +79,7 @@ npm run pair                              # 另开终端：打印二维码/8 位
 | `docs/M4-EDGE-TEST-PLAN.md` | M4 拒绝/冲突安全测试方案（独立 profile，默认不执行） |
 | `docs/DEPLOYMENT.md` / `docs/AI-DEPLOY.md` | 人工部署指南 + 给 AI 的整包部署说明 |
 | `docs/USER-GUIDE.md` | 装好之后怎么用（手机配对、通知、任务详情、审批/问答、常见问题） |
+| `docs/DSH-Watch-项目介绍.docx` / `.pdf` | 可对外发送的项目介绍（含架构图、里程碑、截图和验收数据） |
 | `docs/PRODUCT-DIFFERENTIATORS.md` | 产品差异化要点（状态语义/通知质量/工程证据/M4 hooks） |
 | `docs/evidence/` | 测试、样本、E2E、截图等证据 |
 
