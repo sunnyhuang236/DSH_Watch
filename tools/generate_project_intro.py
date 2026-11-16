@@ -324,7 +324,7 @@ def make_doc():
             ["M0", "真实 DSH 事件、字段、状态判定能力验证", "完成"],
             ["M1", "dsh-watch 插件：事件 → 状态机 → SQLite → /v1 API", "完成，契约 m1-v1.1 冻结"],
             ["M2", "网关 + PWA + Web Push + tunnel", "完成，V06 20/20 到达"],
-            ["M3", "SwiftUI 原生展示版 + GitHub Actions 未签名 IPA", "完成，7 天免费签名维护"],
+            ["M3", "SwiftUI 原生签名版（含 M4 审批/问答/轨迹） + GitHub Actions 未签名 IPA", "完成，7 天免费签名维护"],
             ["M4-A", "手机审批（允许/拒绝/conflict/expired）", "完成，隔离环境真机链路通过"],
             ["M4-B", "手机问答（user-questions/request）", "完成，手机回答真机通过"],
             ["M4-C", "轨迹/费用/子代理展示", "完成，PWA 真机验收通过"],
