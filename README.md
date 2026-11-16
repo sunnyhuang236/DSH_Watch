@@ -1,4 +1,4 @@
-# dsh-mobile-watch（M1 完成 + M2 可用版）
+# dsh-mobile-watch（M1–M4 完成）
 
 DSH 移动盯梢器的代码仓库：电脑上运行 DSH 长任务，手机随时知道任务是否需要你介入。
 
