@@ -2,6 +2,23 @@
 
 适用：Windows 10/11 + DSH Desktop 0.2.2-rc.1（或兼容版本）。目标：装好 `dsh-watch` 插件、网关和 PWA，让手机能收到任务完成/失败/等待提醒。
 
+## 0 一键安装（推荐给朋友）
+
+前置：Windows + Node.js 24 LTS + DSH Desktop（至少启动过一次）。
+
+1. 双击项目根目录 **`install.cmd`**：自动安装 gateway 依赖、运行测试、安装 `dsh-watch` 插件；
+2. 重启 DSH Desktop；
+3. 双击 **`start-dsh-watch.cmd`**：自动启动网关 + cloudflared + 手机配对；
+4. 手机按终端显示的地址/配对码操作。
+
+如果 DSH 是 Web profile：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\install-dsh-watch.ps1 -Profile web
+```
+
+下面的 1–9 节是手动部署步骤，供排查或高级环境使用。
+
 ## 1 组件
 
 | 组件 | 作用 | 位置 |

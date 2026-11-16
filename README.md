@@ -20,6 +20,23 @@ fixtures/               M0/M1 回归样本（真实 + 合成 + 外部依据，�
 docs/                   M1/M2 报告、V05 验收、冻结记录、证据
 ```
 
+## 最简安装（给朋友）
+
+前置：Windows + Node.js 24 LTS + DSH Desktop（至少启动过一次）。
+
+1. 双击 **`install.cmd`**：自动安装网关依赖、运行测试、把 `dsh-watch` 装进 DSH profile；
+2. 重启 DSH Desktop；
+3. 双击 **`start-dsh-watch.cmd`**：自动启动网关和 cloudflared，并进入手机配对；
+4. 手机按终端提示添加主屏幕、输入配对码。
+
+如果 DSH 是 Web profile，安装时用：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\install-dsh-watch.ps1 -Profile web
+```
+
+手动部署细节见 `docs/DEPLOYMENT.md`，装好后的使用见 `docs/USER-GUIDE.md`。
+
 ## 快速开始
 
 M1（只看任务数据，不配对）：

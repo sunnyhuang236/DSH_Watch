@@ -16,6 +16,8 @@
 
 ## 1 环境检查
 
+> 如果用户只是普通安装，优先运行项目根目录的 `install.cmd`（自动依赖/测试/插件），然后运行 `start-dsh-watch.cmd`（网关/tunnel/配对）。下面是 AI 需要理解的手动步骤。
+
 ```powershell
 node --version
 Get-Command dsh -ErrorAction SilentlyContinue
