@@ -10,3 +10,6 @@ docs/evidence/
 *.log
 
 dist/
+
+# Windows 测试产生的特殊占位文件
+CON
