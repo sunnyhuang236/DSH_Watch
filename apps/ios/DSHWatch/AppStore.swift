@@ -68,13 +68,29 @@ final class AppStore: ObservableObject {
         }
     }
 
-    func fetchDetail(taskId: String) async throws -> (TaskSnapshot, [TaskEvent]) {
+    func fetchDetail(taskId: String) async throws -> (TaskSnapshot, [TaskEvent], [ActionRecord], [QuestionRecord]) {
         guard let client = client() else {
             throw APIError(status: 0, code: "not_paired", message: "尚未配对")
         }
         async let snapshot = client.task(id: taskId)
         async let events = client.events(taskId: taskId)
-        return try await (snapshot, events)
+        async let actions = client.actions(taskId: taskId)
+        async let questions = client.questions(taskId: taskId)
+        return try await (snapshot, events, actions, questions)
+    }
+
+    func decide(actionId: String, decision: String) async throws -> ActionDecisionResponse {
+        guard let client = client() else {
+            throw APIError(status: 0, code: "not_paired", message: "尚未配对")
+        }
+        return try await client.decide(actionId: actionId, decision: decision)
+    }
+
+    func answer(actionId: String, answers: [[String: Any]]) async throws -> QuestionAnswerResponse {
+        guard let client = client() else {
+            throw APIError(status: 0, code: "not_paired", message: "尚未配对")
+        }
+        return try await client.answer(actionId: actionId, answers: answers)
     }
 
     func markReminderRead(_ reminder: Reminder) {

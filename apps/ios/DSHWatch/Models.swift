@@ -223,3 +223,115 @@ struct Reminder: Codable, Identifiable, Equatable {
         case readAt = "read_at"
     }
 }
+
+// MARK: - M4 审批 / 问答（M3 原生版复用同一 /v1 契约）
+
+struct ActionRecord: Codable, Identifiable, Equatable {
+    let actionId: String
+    let taskId: String?
+    let toolName: String
+    let callId: String?
+    let reason: String?
+    let displayReason: [String: String]?
+    let createdAt: Int64
+    let expiresAt: Int64
+    let status: String
+    let outcome: String?
+    let decision: String?
+
+    var id: String { actionId }
+    var localizedReason: String {
+        displayReason?["zh"] ?? reason ?? "工具 \(toolName) 请求执行"
+    }
+    var isPending: Bool { status == "pending" }
+
+    enum CodingKeys: String, CodingKey {
+        case actionId = "action_id"
+        case taskId = "task_id"
+        case toolName = "tool_name"
+        case callId = "call_id"
+        case reason
+        case displayReason = "display_reason"
+        case createdAt = "created_at"
+        case expiresAt = "expires_at"
+        case status, outcome, decision
+    }
+}
+
+struct ActionsResponse: Codable {
+    let actions: [ActionRecord]
+}
+
+struct QuestionOption: Codable, Identifiable, Equatable {
+    let label: String
+    let description: String?
+    var id: String { label }
+
+    enum CodingKeys: String, CodingKey {
+        case label, description
+    }
+}
+
+struct QuestionItem: Codable, Identifiable, Equatable {
+    let id: String
+    let header: String?
+    let question: String
+    let detail: String?
+    let options: [QuestionOption]
+    let multiSelect: Bool
+    let intent: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id, header, question, detail, options, intent
+        case multiSelect = "multi_select"
+    }
+}
+
+struct QuestionRecord: Codable, Identifiable, Equatable {
+    let actionId: String
+    let taskId: String?
+    let questions: [QuestionItem]
+    let createdAt: Int64
+    let expiresAt: Int64
+    let status: String
+    let decision: String?
+    let answers: JSONValue?
+
+    var id: String { actionId }
+    var isPending: Bool { status == "pending" }
+
+    enum CodingKeys: String, CodingKey {
+        case actionId = "action_id"
+        case taskId = "task_id"
+        case questions
+        case createdAt = "created_at"
+        case expiresAt = "expires_at"
+        case status, decision, answers
+    }
+}
+
+struct QuestionsResponse: Codable {
+    let questions: [QuestionRecord]
+}
+
+struct ActionDecisionResponse: Codable {
+    let status: String
+    let actionId: String?
+    let decision: String?
+
+    enum CodingKeys: String, CodingKey {
+        case status
+        case actionId = "action_id"
+        case decision
+    }
+}
+
+struct QuestionAnswerResponse: Codable {
+    let status: String
+    let actionId: String?
+
+    enum CodingKeys: String, CodingKey {
+        case status
+        case actionId = "action_id"
+    }
+}

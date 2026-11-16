@@ -73,6 +73,36 @@ final class APIClient {
         return response.events
     }
 
+    func actions(taskId: String) async throws -> [ActionRecord] {
+        let response: ActionsResponse = try await request(
+            "/v1/actions?task_id=\(taskId.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? taskId)"
+        )
+        return response.actions
+    }
+
+    func decide(actionId: String, decision: String) async throws -> ActionDecisionResponse {
+        try await request(
+            "/v1/actions/\(actionId.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? actionId)/decision",
+            method: "POST",
+            body: ["decision": decision]
+        )
+    }
+
+    func questions(taskId: String) async throws -> [QuestionRecord] {
+        let response: QuestionsResponse = try await request(
+            "/v1/questions?task_id=\(taskId.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? taskId)"
+        )
+        return response.questions
+    }
+
+    func answer(actionId: String, answers: [[String: Any]]) async throws -> QuestionAnswerResponse {
+        try await request(
+            "/v1/questions/\(actionId.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? actionId)/answer",
+            method: "POST",
+            body: ["answers": answers]
+        )
+    }
+
     func requestPairing(code: String, deviceName: String) async throws -> PairingRequestResponse {
         try await request(
             "/v1/pair/requests",
