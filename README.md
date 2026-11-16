@@ -2,7 +2,8 @@
 
 DSH 移动盯梢器的代码仓库：电脑上运行 DSH 长任务，手机随时知道任务是否需要你介入。
 
-> 朋友安装看 **[INSTALL.md](INSTALL.md)**；只要 Node.js + DSH Desktop，双击 `install.cmd`，重启 DSH，再双击 `start-dsh-watch.cmd`。
+> 项目总入口：**[START-HERE.md](START-HERE.md)**；朋友安装看 **[INSTALL.md](INSTALL.md)**。
+> 项目介绍 Word：**[docs/DSH-Watch-项目介绍.docx](docs/DSH-Watch-项目介绍.docx)**。
 
 - **M1 数据管道**：`dsh-watch` 插件订阅 DSH 事件 → 归一化 → 状态机 → SQLite → 只读 `/v1` API + 调试面板；契约 **m1-v1.1 已冻结**，42 项测试、13 份回归样本、真实 DSH 0.2.2-rc.1 内加载与重启自动加载已验证。
 - **M2 可用版**：`dsh-watch-gateway`（配对 / 设备凭证 / `/v1` 反代 / PWA 托管 / VAPID Web Push / cloudflared 隧道）+ PWA（配对/任务/详情/提醒/设置、Service Worker、安装引导、缓存）；21 项网关测试 + 本地 E2E + **iPhone 17 Pro Max 真机 V06 20/20 到达（100%）**。
