@@ -42,7 +42,7 @@ M3 的 **SwiftUI 源码、XcodeGen 工程、GitHub Actions 未签名 IPA、Sidel
 - **离线**：启动先读 `Application Support/DSHWatch/tasks.json`，刷新失败保留缓存并显示最后同步时间。
 - **提醒记录**：App 内轮询状态迁移生成本地提醒（M3 无推送），30 天保留。
 - **设计**：`Theme.swift` 使用 `#182C30/#607476/#F3F5F1/#16735C/#955B12/#B54141` 等 Token；状态均带符号+文字。
-- **不含**：Web Push/APNs、手机审批、轨迹、费用/子代理展示（M4 可选）。
+- **不含**：Web Push/APNs（免费签名无 push entitlement）；**已含**：M4 的手机审批、手机问答、轨迹折叠、费用“暂无数据”、子代理信息展示。
 
 ## 3 构建步骤
 
