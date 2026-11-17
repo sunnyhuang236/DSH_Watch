@@ -10,7 +10,7 @@ DSH 移动盯梢器的代码仓库：电脑上运行 DSH 长任务，手机随�
 - **M3 原生签名版（已完成）**：`apps/ios/DSHWatch` SwiftUI 源码 + XcodeGen + GitHub Actions 未签名 IPA + Sideloadly 真机安装；已补齐 M4 的审批/问答/轨迹/费用/子代理，保留任务列表/详情/提醒记录/断网缓存与局域网直连。**不含 Web Push/APNs**（免费签名无 push entitlement，7 天免费签名到期续签）。
 - **M4-A 手机审批（真机通过）**：插件审批桥 + 网关 `/v1/actions` + PWA 审批卡片；手机点击“允许一次”后 `decision=mobile / outcome=allowed-once`，任务恢复运行。
 - **M4-B 问答桥（真机通过）**：插件 `user-questions/request` 桥 + PWA 问答卡片；71/71 测试通过，手机选择「手机回答」后 `decision=mobile`、`status=answered`，DSH 工具收到答案并继续。
-- **M4-C 轨迹/费用/子代理（真机通过）**：轨迹按轮次折叠、最近/异常展开；费用缺失显示“暂无数据”；子代理数量/深度/状态展示，缓存升级 `dsh-watch-v7`。
+- **M4-C 轨迹/费用/子代理（真机通过）**：轨迹按轮次折叠、最近/异常展开；费用缺失显示“暂无数据”；子代理数量/深度/状态展示，缓存升级 `dsh-watch-v8`（v7 因 sw.js 修复后升版）。
 - **M4-D APNs/TestFlight（未做，需 $99 开发者账号）**：免费 Apple ID 无法开启 push entitlement 或使用 TestFlight；当前 PWA Web Push 已覆盖零成本锁屏提醒。
 
 ```
@@ -75,7 +75,8 @@ npm run pair                              # 另开终端：打印二维码/8 位
 | `docs/M2-REPORT.md` | M2 网关 + PWA 报告与验收记录 |
 | `docs/M2-P0-HARDENING.md` / `docs/M2-SECURITY-REVIEW.md` | P0 生产化硬化与安全复查 |
 | `docs/P0-SUMMARY.md` | P0 一页汇总（六项交付、实测时间线、当前状态） |
-| `docs/M3-REPORT.md` / `docs/M3-DEMO-CHECKLIST.md` | M3 原生展示版报告与 60 秒演示清单 |
+| `docs/M3-REPORT.md` / `docs/M3-DEMO-CHECKLIST.md` | M3 原生签名版报告与 60 秒演示清单 |
+| `docs/M3-CODE-REVIEW.md` | M3 代码复查记录（sw.js 修复、详情降级、409/410 处理） |
 | `docs/M4-A-REPORT.md` / `docs/M4-B-REPORT.md` / `docs/V03-APPROVAL-CAPABILITY.md` | M4 手机审批、问答桥与 V03 核查 |
 | `docs/M4-C-REPORT.md` | M4-C 轨迹/费用/子代理展示 |
 | `docs/M4-EDGE-TEST-PLAN.md` | M4 拒绝/冲突安全测试方案（独立 profile，默认不执行） |

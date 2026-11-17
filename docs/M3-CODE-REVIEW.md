@@ -8,7 +8,7 @@
 
 | 项 | 严重度 | 状态 |
 | --- | --- | --- |
-| `apps/web/sw.js` 文件被历史 PowerShell 文本操作写成乱码，`KIND_TEXT` 存在未闭合单引号，Service Worker 解析失败 | 高 | 已修复（重写为干净 UTF-8，缓存仍为 `dsh-watch-v7`） |
+| `apps/web/sw.js` 文件被历史 PowerShell 文本操作写成乱码，`KIND_TEXT` 存在未闭合单引号，Service Worker 解析失败 | 高 | 已修复（重写为干净 UTF-8；因旧缓存可能已损坏，缓存版本提升到 `dsh-watch-v8`） |
 | M3 任务详情把 `/v1/actions`、`/v1/questions` 当必需请求，旧插件返回 404 会导致整个详情打不开 | 中 | 已修复（改为可降级；失败时按空列表处理） |
 | M3 审批/问答遇到 409 conflict / 410 expired 只显示“提交失败” | 低 | 已修复（显示“已被处理或已过期”，并刷新详情） |
 
