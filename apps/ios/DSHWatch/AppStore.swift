@@ -74,8 +74,9 @@ final class AppStore: ObservableObject {
         }
         async let snapshot = client.task(id: taskId)
         async let events = client.events(taskId: taskId)
-        async let actions = client.actions(taskId: taskId)
-        async let questions = client.questions(taskId: taskId)
+        // 审批/问答桥未启用（旧插件或 404）时，详情仍应正常展示
+        let actions = (try? await client.actions(taskId: taskId)) ?? []
+        let questions = (try? await client.questions(taskId: taskId)) ?? []
         return try await (snapshot, events, actions, questions)
     }
 

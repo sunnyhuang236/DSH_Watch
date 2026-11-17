@@ -204,6 +204,9 @@ struct TaskDetailView: View {
                 let result = try await store.decide(actionId: action.actionId, decision: decision)
                 actionMessage = result.status == "accepted" ? "已提交，等待电脑确认" : "该审批已被处理"
                 await load()
+            } catch let api as APIError where api.status == 409 || api.status == 410 {
+                actionMessage = "该审批已被处理或已过期"
+                await load()
             } catch {
                 actionMessage = "审批提交失败：\(error.localizedDescription)"
             }
@@ -227,6 +230,9 @@ struct TaskDetailView: View {
             do {
                 let result = try await store.answer(actionId: record.actionId, answers: answers)
                 actionMessage = result.status == "accepted" ? "回答已提交，等待电脑确认" : "该问题已处理"
+                await load()
+            } catch let api as APIError where api.status == 409 || api.status == 410 {
+                actionMessage = "该问题已被处理或已过期"
                 await load()
             } catch {
                 actionMessage = "回答提交失败：\(error.localizedDescription)"
