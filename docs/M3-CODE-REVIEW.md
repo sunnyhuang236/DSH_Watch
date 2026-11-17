@@ -16,7 +16,7 @@
 
 ## 验证
 
-- `npm test`：**73 / 73 通过**
+- `npm test`：**74 / 74 通过**
 - 全部 `.js` / `.mjs` 通过 `node --check`（含修复后的 `sw.js`）
 - 新增 `tools/check-m3-api-shape.mjs`：对真实 `/v1/tasks`、`/v1/tasks/{id}`、`/v1/events`、`/v1/actions`、`/v1/questions` 采样，逐字段比对 M3 Swift `Codable` 模型的必需/可选类型
   - 实测结果：`tasks=10 events=20`，形状 **OK**

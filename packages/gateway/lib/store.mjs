@@ -34,12 +34,16 @@ export class GatewayStore {
   }
 
   load() {
+    if (!fs.existsSync(this.path)) return;
+    let raw;
+    try { raw = fs.readFileSync(this.path, 'utf8'); } catch { return; }
     try {
-      if (fs.existsSync(this.path)) {
-        const parsed = JSON.parse(fs.readFileSync(this.path, 'utf8'));
-        if (parsed && parsed.version === 1) this.state = { ...emptyState(), ...parsed };
-      }
-    } catch { /* 损坏则重新开始，不阻塞网关启动 */ }
+      const parsed = JSON.parse(raw);
+      if (parsed && parsed.version === 1) this.state = { ...emptyState(), ...parsed };
+    } catch {
+      // 文件损坏：先留一份备份再重新开始，避免静默覆盖导致无法排查
+      try { fs.renameSync(this.path, this.path + '.corrupt-' + Date.now()); } catch { /* 忽略 */ }
+    }
     this.state.devices ||= [];
     this.state.subscriptions ||= [];
     this.state.notified ||= {};

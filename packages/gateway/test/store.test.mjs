@@ -62,3 +62,15 @@ test('store：VAPID 与推送订阅持久化', () => {
     assert.equal(reloaded.listSubscriptions().length, 0);
   } finally { cleanup(dir); }
 });
+
+test('store：state.json 损坏时备份并以空状态启动', () => {
+  const { dir, file } = tempStatePath();
+  try {
+    fs.writeFileSync(file, '{ 这不是合法 JSON', 'utf8');
+    const store = new GatewayStore({ path: file });
+    assert.deepEqual(store.deviceStats(), { total: 0, revoked: 0, active: 0 });
+    const backups = fs.readdirSync(dir).filter((n) => n.includes('.corrupt-'));
+    assert.equal(backups.length, 1);
+    assert.equal(fs.existsSync(file), false);
+  } finally { cleanup(dir); }
+});
