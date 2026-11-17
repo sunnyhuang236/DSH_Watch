@@ -64,7 +64,7 @@ dsh-mobile-watch\install.cmd
 
 - 检查 Node.js 和 DSH；
 - 安装 `packages/gateway` 依赖；
-- 运行测试（当前 71/71）；
+- 运行测试（当前 73/73）；
 - 把 `dsh-watch` 插件安装到 DSH 的 `desktop` profile。
 
 看到 **“安装完成”** 后继续。

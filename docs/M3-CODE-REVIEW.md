@@ -11,10 +11,12 @@
 | `apps/web/sw.js` 文件被历史 PowerShell 文本操作写成乱码，`KIND_TEXT` 存在未闭合单引号，Service Worker 解析失败 | 高 | 已修复（重写为干净 UTF-8；因旧缓存可能已损坏，缓存版本提升到 `dsh-watch-v8`） |
 | M3 任务详情把 `/v1/actions`、`/v1/questions` 当必需请求，旧插件返回 404 会导致整个详情打不开 | 中 | 已修复（改为可降级；失败时按空列表处理） |
 | M3 审批/问答遇到 409 conflict / 410 expired 只显示“提交失败” | 低 | 已修复（显示“已被处理或已过期”，并刷新详情） |
+| M3 设备被撤销（401）时只显示原始错误，不回到配对页 | 中 | 已修复（401 自动清除本机凭证并回到配对页） |
+| `health` 只能看到 `devices: 0`，无法区分“从未配对”和“旧设备被撤销” | 低 | 已修复（新增 `devices_total` / `devices_revoked`） |
 
 ## 验证
 
-- `npm test`：**71 / 71 通过**
+- `npm test`：**73 / 73 通过**
 - 全部 `.js` / `.mjs` 通过 `node --check`（含修复后的 `sw.js`）
 - 新增 `tools/check-m3-api-shape.mjs`：对真实 `/v1/tasks`、`/v1/tasks/{id}`、`/v1/events`、`/v1/actions`、`/v1/questions` 采样，逐字段比对 M3 Swift `Codable` 模型的必需/可选类型
   - 实测结果：`tasks=10 events=20`，形状 **OK**

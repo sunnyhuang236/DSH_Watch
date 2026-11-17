@@ -43,7 +43,7 @@ npm install --prefix packages/gateway
 npm test
 ```
 
-预期：全部测试通过（当前 71/71）。
+预期：全部测试通过（当前 73/73）。
 
 ## 4 安装 DSH 插件
 

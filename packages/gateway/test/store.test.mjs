@@ -21,6 +21,33 @@ test('store：设备 token 只存哈希，撤销后不可查', () => {
   } finally { cleanup(dir); }
 });
 
+test('store：deviceStats 区分有效/已撤销设备', () => {
+  const { dir, file } = tempStatePath();
+  try {
+    const store = new GatewayStore({ path: file });
+    store.addDevice({ deviceId: 'dev_a', name: 'A', tokenHash: 'ha' });
+    store.addDevice({ deviceId: 'dev_b', name: 'B', tokenHash: 'hb' });
+    assert.deepEqual(store.deviceStats(), { total: 2, revoked: 0, active: 2 });
+    store.revokeDevice('dev_a');
+    assert.deepEqual(store.deviceStats(), { total: 2, revoked: 1, active: 1 });
+  } finally { cleanup(dir); }
+});
+
+test('store：public_url 变化会撤销旧设备并清空订阅', () => {
+  const { dir, file } = tempStatePath();
+  try {
+    const store = new GatewayStore({ path: file });
+    store.setPublicUrl('https://old.example');
+    store.addDevice({ deviceId: 'dev_c', name: 'C', tokenHash: 'hc' });
+    store.upsertSubscription('dev_c', { endpoint: 'https://push.example/c', keys: { p256dh: 'p', auth: 'a' } });
+    assert.equal(store.deviceStats().active, 1);
+    assert.equal(store.listSubscriptions().length, 1);
+    store.setPublicUrl('https://new.example');
+    assert.equal(store.deviceStats().active, 0);
+    assert.equal(store.listSubscriptions().length, 0);
+  } finally { cleanup(dir); }
+});
+
 test('store：VAPID 与推送订阅持久化', () => {
   const { dir, file } = tempStatePath();
   try {

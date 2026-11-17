@@ -1,6 +1,6 @@
 # M4-A 手机审批（后端 + PWA 卡片）
 
-日期：2026-11-15｜状态：**手机审批允许/拒绝/冲突 + 插件重启 expired 均已真机/隔离环境通过**；M4-B 问答桥真机通过；71/71 测试通过。
+日期：2026-11-15｜状态：**手机审批允许/拒绝/冲突 + 插件重启 expired 均已真机/隔离环境通过**；M4-B 问答桥真机通过；73/73 测试通过。
 
 ## 1 范围
 
@@ -45,7 +45,7 @@ body: {"decision":"allowed-once"} | {"decision":"rejected"}
 
 ## 3 测试
 
-`npm test`：**71/71 通过**（含 ApprovalBridge、QuestionBridge、API decision 测试）。
+`npm test`：**73/73 通过**（含 ApprovalBridge、QuestionBridge、API decision 测试）。
 
 ## 4 真机验证（2026-11-15 18:35）
 

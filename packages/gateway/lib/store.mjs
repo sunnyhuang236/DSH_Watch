@@ -132,6 +132,13 @@ export class GatewayStore {
     }));
   }
 
+  // 设备统计：便于排查“为什么 devices 是 0”（旧隧道地址变化会撤销旧设备）
+  deviceStats() {
+    const total = this.state.devices.length;
+    const revoked = this.state.devices.filter((item) => item.revoked_at).length;
+    return { total, revoked, active: total - revoked };
+  }
+
   // ---- 推送订阅 ----
   upsertSubscription(deviceId, subscription) {
     const endpoint = String(subscription.endpoint || '');

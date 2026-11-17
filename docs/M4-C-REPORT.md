@@ -20,5 +20,5 @@
 ## 验证
 
 - `node --check apps/web/app.js` 通过；
-- `npm test` 71/71 通过；
+- `npm test` 73/73 通过；
 - 真机截图：`docs/evidence/m4/m4c-detail.jpg`（子代理 2 个、费用暂无数据、轨迹按轮次折叠）。

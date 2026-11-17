@@ -148,13 +148,16 @@ export function createGateway({ store, upstream = 'http://127.0.0.1:7317', publi
         const response = await fetch(upstream + '/v1/health', { signal: AbortSignal.timeout(1500) });
         upstreamOk = response.ok;
       } catch { upstreamOk = false; }
+      const deviceStats = store.deviceStats();
       sendJson(res, 200, {
         ok: true,
         service: 'dsh-watch-gateway',
         version: '0.1.0',
         upstream: { ok: upstreamOk, url: upstream },
         public_url: store.getPublicUrl() || publicUrl || null,
-        devices: store.listDevices().length,
+        devices: deviceStats.active,
+        devices_total: deviceStats.total,
+        devices_revoked: deviceStats.revoked,
         subscriptions: store.listSubscriptions().length,
         watcher: watcher.stats,
         retention_days: 30,

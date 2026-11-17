@@ -62,6 +62,13 @@ final class AppStore: ObservableObject {
             lastSync = Date()
             errorMessage = nil
             saveCache()
+        } catch let api as APIError where api.status == 401 {
+            // 设备已被撤销（常见于电脑端隧道地址变化后自动撤销旧设备）→ 回到配对页重新配对
+            self.token = nil
+            self.baseURL = nil
+            KeychainStore.delete(key: "deviceToken")
+            defaults.removeObject(forKey: "baseURL")
+            errorMessage = "设备已失效，请重新配对"
         } catch {
             errorMessage = error.localizedDescription
             // 离线时保留缓存，不清空 tasks
