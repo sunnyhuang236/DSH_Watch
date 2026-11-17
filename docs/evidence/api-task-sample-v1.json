@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0",
+  "task_id": "session-19286104-c56e-427b-9f9a-08926be18ac0",
+  "run_id": "session-19286104-c56e-427b-9f9a-08926be18ac0:5",
+  "state": "running",
+  "state_version": 11,
+  "title": "M0 研发提示词（整段复制到新",
+  "summary": "运行中 · 步骤 14",
+  "started_at": 1793886430786,
+  "updated_at": 1793886633150,
+  "last_activity_at": 1793886633150,
+  "ended_at": null,
+  "capabilities": {
+    "approval": true,
+    "cost": false,
+    "agents": true
+  },
+  "cost": null,
+  "token_usage": {
+    "input_tokens": 200130,
+    "output_tokens": 378398,
+    "cache_read_tokens": 44477440,
+    "cache_write_tokens": 0,
+    "total_tokens": 45055968,
+    "messages": 150
+  },
+  "agent_count": 1,
+  "agent_state": "unknown",
+  "connection": "online",
+  "delegation_depth": 0,
+  "parent_task_id": null,
+  "origin": null,
+  "current_step": 14,
+  "current_tool": null,
+  "waiting": null
+}

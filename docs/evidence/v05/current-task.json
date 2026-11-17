@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0",
+  "task_id": "session-19286104-c56e-427b-9f9a-08926be18ac0",
+  "run_id": "session-19286104-c56e-427b-9f9a-08926be18ac0:6",
+  "state": "running",
+  "state_version": 19,
+  "title": "M0 研发提示词（整段复制到新",
+  "summary": "运行中 · ops_bash",
+  "started_at": 1794655960712,
+  "updated_at": 1794658579611,
+  "last_activity_at": 1794658579611,
+  "ended_at": null,
+  "capabilities": {
+    "approval": true,
+    "cost": false,
+    "agents": true
+  },
+  "cost": null,
+  "token_usage": {
+    "input_tokens": 1605530,
+    "output_tokens": 414365,
+    "cache_read_tokens": 57677184,
+    "cache_write_tokens": 0,
+    "total_tokens": 59697079,
+    "messages": 182
+  },
+  "agent_count": 1,
+  "agent_state": "unknown",
+  "connection": "online",
+  "delegation_depth": 0,
+  "parent_task_id": null,
+  "origin": null,
+  "current_step": 26,
+  "current_tool": "ops_bash",
+  "waiting": null
+}

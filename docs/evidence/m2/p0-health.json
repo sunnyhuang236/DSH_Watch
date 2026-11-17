@@ -1,0 +1,20 @@
+{
+  "ok": true,
+  "service": "dsh-watch-gateway",
+  "version": "0.1.0",
+  "upstream": {
+    "ok": true,
+    "url": "http://127.0.0.1:7317"
+  },
+  "public_url": null,
+  "devices": 2,
+  "subscriptions": 1,
+  "watcher": {
+    "polls": 38,
+    "notifications": 0,
+    "retries": 0,
+    "failures": 0
+  },
+  "retention_days": 30,
+  "time": 1794673531146
+}

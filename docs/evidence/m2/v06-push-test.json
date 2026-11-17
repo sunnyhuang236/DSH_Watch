@@ -1,0 +1,21 @@
+{
+  "tag": "pwa-newtunnel",
+  "count": 1,
+  "startedAt": "2026-11-15T10:34:29.622Z",
+  "finishedAt": "2026-11-15T10:34:29.622Z",
+  "results": [
+    {
+      "index": 1,
+      "kind": "succeeded",
+      "event": "pwa-newtunnel:1:succeeded",
+      "result": {
+        "sent": 1,
+        "failed": 0,
+        "removed": 0,
+        "retried": 0
+      },
+      "ms": 1015,
+      "at": "2026-11-15T10:34:29.622Z"
+    }
+  ]
+}

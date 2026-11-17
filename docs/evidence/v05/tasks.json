@@ -1,0 +1,150 @@
+{
+  "schema_version": "1.0",
+  "tasks": [
+    {
+      "schema_version": "1.0",
+      "task_id": "session-19286104-c56e-427b-9f9a-08926be18ac0",
+      "run_id": "session-19286104-c56e-427b-9f9a-08926be18ac0:6",
+      "state": "running",
+      "state_version": 19,
+      "title": "M0 研发提示词（整段复制到新",
+      "summary": "运行中 · ops_bash",
+      "started_at": 1794655960712,
+      "updated_at": 1794658579611,
+      "last_activity_at": 1794658579611,
+      "ended_at": null,
+      "capabilities": {
+        "approval": true,
+        "cost": false,
+        "agents": true
+      },
+      "cost": null,
+      "token_usage": {
+        "input_tokens": 1605530,
+        "output_tokens": 414365,
+        "cache_read_tokens": 57677184,
+        "cache_write_tokens": 0,
+        "total_tokens": 59697079,
+        "messages": 182
+      },
+      "agent_count": 1,
+      "agent_state": "unknown",
+      "connection": "online",
+      "delegation_depth": 0,
+      "parent_task_id": null,
+      "origin": null,
+      "current_step": 26,
+      "current_tool": "ops_bash",
+      "waiting": null
+    },
+    {
+      "schema_version": "1.0",
+      "task_id": "session-ad867c6e-3163-408b-9d3a-5bb9b475f3c6",
+      "run_id": "session-ad867c6e-3163-408b-9d3a-5bb9b475f3c6:1",
+      "state": "succeeded",
+      "state_version": 2,
+      "title": "鹈鹕骑自行车SVG图",
+      "summary": "已完成",
+      "started_at": 1794647975895,
+      "updated_at": 1794655832612,
+      "last_activity_at": 1794655832612,
+      "ended_at": 1794648353835,
+      "capabilities": {
+        "approval": true,
+        "cost": false,
+        "agents": true
+      },
+      "cost": null,
+      "token_usage": {
+        "input_tokens": 58374,
+        "output_tokens": 26010,
+        "cache_read_tokens": 1664512,
+        "cache_write_tokens": 0,
+        "total_tokens": 1748896,
+        "messages": 25
+      },
+      "agent_count": 0,
+      "agent_state": "unknown",
+      "connection": "online",
+      "delegation_depth": 0,
+      "parent_task_id": null,
+      "origin": null,
+      "current_step": 25,
+      "current_tool": null,
+      "waiting": null
+    },
+    {
+      "schema_version": "1.0",
+      "task_id": "session-706776a5-b46c-4e0e-add0-660992131ef2",
+      "run_id": "session-706776a5-b46c-4e0e-add0-660992131ef2:2",
+      "state": "succeeded",
+      "state_version": 8,
+      "title": "Add Magpie API curl command",
+      "summary": "已完成",
+      "started_at": 1794647931127,
+      "updated_at": 1794647943973,
+      "last_activity_at": 1794647943973,
+      "ended_at": 1794647943973,
+      "capabilities": {
+        "approval": true,
+        "cost": false,
+        "agents": true
+      },
+      "cost": null,
+      "token_usage": {
+        "input_tokens": 288506,
+        "output_tokens": 58533,
+        "cache_read_tokens": 6885632,
+        "cache_write_tokens": 0,
+        "total_tokens": 7232671,
+        "messages": 58
+      },
+      "agent_count": 0,
+      "agent_state": "unknown",
+      "connection": "online",
+      "delegation_depth": 0,
+      "parent_task_id": null,
+      "origin": null,
+      "current_step": 1,
+      "current_tool": null,
+      "waiting": null
+    },
+    {
+      "schema_version": "1.0",
+      "task_id": "session-1c01794c-aa75-48f4-9034-7976c6986bbf",
+      "run_id": "session-1c01794c-aa75-48f4-9034-7976c6986bbf:1",
+      "state": "succeeded",
+      "state_version": 8,
+      "title": "帮我删除无畏契约和WeGame",
+      "summary": "已完成",
+      "started_at": 1793881494920,
+      "updated_at": 1793882742902,
+      "last_activity_at": 1793882742902,
+      "ended_at": 1793882742902,
+      "capabilities": {
+        "approval": true,
+        "cost": false,
+        "agents": true
+      },
+      "cost": null,
+      "token_usage": {
+        "input_tokens": 32877,
+        "output_tokens": 93166,
+        "cache_read_tokens": 3148160,
+        "cache_write_tokens": 0,
+        "total_tokens": 3274203,
+        "messages": 47
+      },
+      "agent_count": 0,
+      "agent_state": "unknown",
+      "connection": "online",
+      "delegation_depth": 0,
+      "parent_task_id": null,
+      "origin": null,
+      "current_step": 47,
+      "current_tool": null,
+      "waiting": null
+    }
+  ],
+  "next_cursor": null
+}

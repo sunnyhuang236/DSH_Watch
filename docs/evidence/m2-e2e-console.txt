@@ -1,0 +1,11 @@
+health: {"status":200,"upstream":{"ok":true,"url":"http://127.0.0.1:7317"},"devices":0,"subscriptions":0}
+pair_session: {"pairing_id":"pair_314d4aadce285b1b04","code":"68684477","pair_url":"http://127.0.0.1:8787/pair?p=pair_314d4aadce285b1b04&code=68684477","computer_name":"LAPTOP-21ASP22L","fingerprint":"211e077f4051"}
+pair_request: {"request_id":"req_46f4544a25017a6a22","status":"pending"}
+pair_confirm: {"status":200,"body":{"status":"confirmed","device":{"device_id":"dev_00e0eabf4d58a764","name":"M2 E2E iPhone"}}}
+pair_poll: {"status":200,"result":"confirmed","device_id":"dev_00e0eabf4d58a764","token_prefix":"dsw_WahT…"}
+tasks: {"status":200,"count":5,"states":{"running":1,"succeeded":4}}
+unauthorized: {"status":401,"code":"unauthorized"}
+pwa: {"index_status":200,"html_has_brand":true,"manifest_status":200,"manifest_name":"DSH Watch","sw_status":200,"sw_has_push":true}
+device: {"status":200,"name":"M2 E2E iPhone","device_id":"dev_00e0eabf4d58a764"}
+
+E2E PASS → C:\Users\22472\Desktop\DSH提醒小助手\dsh-mobile-watch\docs\evidence\m2\e2e.json

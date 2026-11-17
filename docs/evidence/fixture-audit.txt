@@ -1,0 +1,17 @@
+fixtures audit 2026-11-14T12:34:32.180Z
+  fixtures/fixture-01-completed-wifixtures audit 2026-11-14T12:34:32.180Z
+  fixtures/fixture-01-completed-with-tool-errors.jsonl: lines=45 bytes=12904
+  fixtures/fixture-02-approval-wait.jsonl: lines=48 bytes=13212
+  fixtures/fixture-03-aborted-turns.jsonl: lines=15 bytes=2451
+  fixtures/fixture-04-waiting-question-live.jsonl: lines=18 bytes=5137
+  fixtures/fixture-05-subagent-session.jsonl: lines=69 bytes=19891
+  fixtures/special/external-observed-failed-turn.jsonl: lines=11 bytes=1523
+  fixtures/special/external-reason-kinds.jsonl: lines=13 bytes=1167
+  fixtures/special/real-llm-retry-window.jsonl: lines=31 bytes=8178
+  fixtures/special/real-multi-approval-window.jsonl: lines=59 bytes=16190
+  fixtures/special/real-question-wait-window.jsonl: lines=23 bytes=6897
+  fixtures/special/synthetic-approval-outcomes.jsonl: lines=23 bytes=2984
+  fixtures/special/synthetic-failed-turn.jsonl: lines=8 bytes=1432
+  fixtures/special/synthetic-question-aborted.jsonl: lines=5 bytes=662
+checkedFiles=13 checkedLines=368 violations=0
+AUDIT PASS

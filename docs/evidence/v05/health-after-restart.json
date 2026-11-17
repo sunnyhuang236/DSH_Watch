@@ -1,0 +1,18 @@
+{
+  "ok": true,
+  "service": "dsh-watch",
+  "version": "0.1.0",
+  "schema_version": "1.0",
+  "contract": "m1-v1.1",
+  "capabilities": {
+    "approval": true,
+    "cost": false,
+    "agents": true
+  },
+  "stats": {
+    "tasks": 5,
+    "events": 2860
+  },
+  "uptime_s": 82,
+  "time": 1794661011854
+}

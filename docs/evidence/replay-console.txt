@@ -1,0 +1,10 @@
+回放完成：8 个会话写入 .data/replay-evidence.db
+  log:dadc4718 depth=0 applied=97 state=running summary=运行中 · 步骤 15
+  log:987b3f53 depth=0 applied=828 state=running summary=运行中 · ops_bash
+  log:43ae7fbc depth=0 applied=1111 state=succeeded summary=已完成
+  log:37df036f depth=1 applied=394 state=succeeded summary=已完成
+  log:955c08f1 depth=0 applied=342 state=succeeded summary=已完成
+  log:5444b293 depth=0 applied=2035 state=succeeded summary=已完成
+  log:e94eeac7 depth=1 applied=578 state=succeeded summary=已完成
+  log:aac8c20a depth=0 applied=1108 state=succeeded summary=已完成
+stats={"ingested":6493,"ignored":1182,"duplicates":0,"errors":0} store={"tasks":8,"events":6493}

@@ -1,0 +1,29 @@
+{
+    "test":  "M4E-REJECT-01",
+    "generated_at":  "2026-11-15T22:32:07.9540456+08:00",
+    "profile":  "m4-edge",
+    "action":  {
+                   "action_id":  "act_30113e39-9455-4fbb-8e4c-78b557bbd316",
+                   "task_id":  "session-136b44b2-2338-48c7-b198-7e48e57bad20",
+                   "tool_name":  "pwsh",
+                   "call_id":  "call_00_8Ykt9sdMS4xk8ZdESNaV9702",
+                   "reason":  "escalate sandbox to workspace-write: M4 手机拒绝测试",
+                   "display_reason":  {
+                                          "en":  "Allow this operation with workspace-write permissions: M4 手机拒绝测试",
+                                          "zh":  "允许本次操作使用 workspace-write 权限：M4 手机拒绝测试",
+                                          "ja":  "workspace-write 権限でこの操作を許可します：M4 手机拒绝测试",
+                                          "es":  "Permitir esta operación con permisos workspace-write: M4 手机拒绝测试",
+                                          "fr":  "Autoriser cette opération avec les permissions workspace-write : M4 手机拒绝测试",
+                                          "de":  "Diesen Vorgang mit workspace-write-Berechtigungen zulassen: M4 手机拒绝测试",
+                                          "ru":  "Разрешить эту операцию с правами workspace-write: M4 手机拒绝测试",
+                                          "pt":  "Permitir esta operação com permissões workspace-write: M4 手机拒绝测试"
+                                      },
+                   "created_at":  1794751391271,
+                   "expires_at":  1794751691271,
+                   "status":  "decided",
+                   "outcome":  "rejected",
+                   "decision":  "mobile"
+               },
+    "probe_reject_exists":  false,
+    "note":  "手机拒绝路径通过：decision=mobile / outcome=rejected，probe-reject.txt 不存在"
+}

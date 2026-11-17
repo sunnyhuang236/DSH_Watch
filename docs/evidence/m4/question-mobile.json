@@ -1,0 +1,42 @@
+{
+    "generated_at":  "2026-11-15T19:39:24.9860124+08:00",
+    "action":  {
+                   "action_id":  "q_e400daad-b220-4d6c-8544-1df171f16448",
+                   "task_id":  "session-19286104-c56e-427b-9f9a-08926be18ac0",
+                   "questions":  [
+                                     {
+                                         "id":  "m4b_phone_final",
+                                         "header":  "M4-B 手机答题",
+                                         "question":  "M4-B 真机测试：请选择「手机回答」。",
+                                         "detail":  null,
+                                         "options":  [
+                                                         {
+                                                             "label":  "手机回答",
+                                                             "description":  "从 PWA 回答"
+                                                         },
+                                                         {
+                                                             "label":  "桌面回答",
+                                                             "description":  "从桌面回答"
+                                                         }
+                                                     ],
+                                         "multi_select":  false,
+                                         "intent":  null
+                                     }
+                                 ],
+                   "created_at":  1794742695742,
+                   "expires_at":  1794742995742,
+                   "status":  "answered",
+                   "decision":  "mobile",
+                   "answers":  {
+                                   "answers":  [
+                                                   {
+                                                       "id":  "m4b_phone_final",
+                                                       "selected":  [
+                                                                        "手机回答"
+                                                                    ]
+                                                   }
+                                               ]
+                               }
+               },
+    "note":  "PWA mobile answer verified: status=answered decision=mobile; DSH ask_user_question received selected=手机回答"
+}

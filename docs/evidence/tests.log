@@ -1,0 +1,53 @@
+
+> dsh-mobile-watch@0.1.0 test
+> node --test --test-isolation=none packages/dsh-watch/test/
+
+✔ /v1 API 全链路（fixture-02） (52.1882ms)
+✔ ID 规则：event_id = task:seq，run_id = task:turn (0.095ms)
+✔ 快照与事件符合 JSON Schema（用 fixture-02 真实窗口） (2.7056ms)
+✔ 快照对空任务也能通过契约校验（initialSnapshot） (0.454ms)
+✔ fixtures: fixture-01-completed-with-tool-errors.jsonl (2.9343ms)
+✔ fixtures: fixture-02-approval-wait.jsonl (2.7239ms)
+✔ fixtures: fixture-03-aborted-turns.jsonl (1.6697ms)
+✔ fixtures: fixture-04-waiting-question-live.jsonl (1.6525ms)
+✔ fixtures: fixture-05-subagent-session.jsonl (2.2176ms)
+✔ fixtures: special/external-observed-failed-turn.jsonl (0.8481ms)
+✔ fixtures: special/external-reason-kinds.jsonl (0.8483ms)
+✔ fixtures: special/real-llm-retry-window.jsonl (1.5638ms)
+✔ fixtures: special/real-multi-approval-window.jsonl (2.7023ms)
+✔ fixtures: special/real-question-wait-window.jsonl (2.3134ms)
+✔ fixtures: special/synthetic-approval-outcomes.jsonl (1.231ms)
+✔ fixtures: special/synthetic-failed-turn.jsonl (0.6709ms)
+✔ fixtures: special/synthetic-question-aborted.jsonl (0.5065ms)
+✔ 插件元数据与 apply 的订阅注册 (2.3443ms)
+✔ session/event → 快照 → /v1 API → 卸载关闭 (11.5425ms)
+✔ 启动时 seed 已加载会话的历史事件 (5.4175ms)
+✔ 启动时 seed live agent 的 status（agent/status 不落盘，错过即 unknown） (5.0356ms)
+✔ provenance：special 样本全部登记、sha256 一致、synthetic 标记正确 (2.4912ms)
+✔ failed 终态：turn/end kind=error → failed，并保留 error_code (0.8949ms)
+✔ 审批三种未观测 outcome：rejected / cancelled / unavailable 均可判定等待解除 (1.0232ms)
+✔ 等待提问期间被取消：waiting_input → cancelled，等待清理 (0.5332ms)
+✔ 真实 LLM 重试窗口：出现 assistant/attempt + llm/retry，但状态不被误判为 failed (0.9947ms)
+✔ 真实多审批窗口：同一 turn ≥2 次审批，等待态可见 (2.2431ms)
+✔ 真实提问等待窗口：waiting_input 可见且 tool/result 后恢复 running (1.0402ms)
+✔ 外部实测 failed：turn/end reason=error 的 error.code 保留（UNKNOWN / MISSING_CREDENTIAL） (0.7314ms)
+✔ 源码 reason 枚举：max-tokens/blocked → failed，interrupted/forked → cancelled (0.9286ms)
+✔ 外部实测样本的 provenance 标注 external/source (0.2077ms)
+✔ completed → succeeded，run_id/ended_at/token 正确 (0.5896ms)
+✔ aborted → cancelled（含 reason.reason.kind=user） (0.3556ms)
+✔ 未知 reason.kind → unknown（不得当成 succeeded） (0.3879ms)
+✔ 工具报错不改变终态（tool/result.isError=true + completed → succeeded） (0.4158ms)
+✔ 审批：approval/asked → waiting_approval，decided 后恢复 running (0.5188ms)
+✔ 提问：ask_user_question 的 call 未返回时 waiting_input，返回后 running (0.3712ms)
+✔ 终态按 run 不可逆：completed 之后迟到事件不改状态 (0.349ms)
+✔ 新 turn 开启新 run：终态后可恢复 running (0.3167ms)
+✔ 事件幂等：重复 event_id 不重复插入/不重复累计 (0.3118ms)
+✔ 标题：优先 session/title；否则首个真人 user/message (1.091ms)
+ℹ tests 41
+ℹ suites 0
+ℹ pass 41
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 165.1198

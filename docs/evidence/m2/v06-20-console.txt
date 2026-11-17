@@ -1,0 +1,21 @@
+{"index":1,"kind":"succeeded","event":"v06-20-233821:1:succeeded","result":{"sent":1,"failed":0,"removed":0},"ms":768,"at":"2026-11-14T15:38:25.119Z"}
+{"index":2,"kind":"failed","event":"v06-20-233821:2:failed","result":{"sent":1,"failed":0,"removed":0},"ms":947,"at":"2026-11-14T15:38:27.575Z"}
+{"index":3,"kind":"waiting_input","event":"v06-20-233821:3:waiting_input","result":{"sent":1,"failed":0,"removed":0},"ms":254,"at":"2026-11-14T15:38:29.334Z"}
+{"index":4,"kind":"waiting_approval","event":"v06-20-233821:4:waiting_approval","result":{"sent":1,"failed":0,"removed":0},"ms":256,"at":"2026-11-14T15:38:31.097Z"}
+{"index":5,"kind":"succeeded","event":"v06-20-233821:5:succeeded","result":{"sent":1,"failed":0,"removed":0},"ms":254,"at":"2026-11-14T15:38:32.856Z"}
+{"index":6,"kind":"succeeded","event":"v06-20-233821:6:succeeded","result":{"sent":1,"failed":0,"removed":0},"ms":257,"at":"2026-11-14T15:38:34.623Z"}
+{"index":7,"kind":"failed","event":"v06-20-233821:7:failed","result":{"sent":1,"failed":0,"removed":0},"ms":254,"at":"2026-11-14T15:38:36.385Z"}
+{"index":8,"kind":"waiting_input","event":"v06-20-233821:8:waiting_input","result":{"sent":1,"failed":0,"removed":0},"ms":1393,"at":"2026-11-14T15:38:39.289Z"}
+{"index":9,"kind":"waiting_approval","event":"v06-20-233821:9:waiting_approval","result":{"sent":1,"failed":0,"removed":0},"ms":256,"at":"2026-11-14T15:38:41.051Z"}
+{"index":10,"kind":"succeeded","event":"v06-20-233821:10:succeeded","result":{"sent":1,"failed":0,"removed":0},"ms":257,"at":"2026-11-14T15:38:42.818Z"}
+{"index":11,"kind":"succeeded","event":"v06-20-233821:11:succeeded","result":{"sent":1,"failed":0,"removed":0},"ms":255,"at":"2026-11-14T15:38:44.575Z"}
+{"index":12,"kind":"failed","event":"v06-20-233821:12:failed","result":{"sent":1,"failed":0,"removed":0},"ms":261,"at":"2026-11-14T15:38:46.344Z"}
+{"index":13,"kind":"waiting_input","event":"v06-20-233821:13:waiting_input","result":{"sent":1,"failed":0,"removed":0},"ms":758,"at":"2026-11-14T15:38:48.603Z"}
+{"index":14,"kind":"waiting_approval","event":"v06-20-233821:14:waiting_approval","result":{"sent":1,"failed":0,"removed":0},"ms":758,"at":"2026-11-14T15:38:50.861Z"}
+{"index":15,"kind":"succeeded","event":"v06-20-233821:15:succeeded","result":{"sent":1,"failed":0,"removed":0},"ms":255,"at":"2026-11-14T15:38:52.621Z"}
+{"index":16,"kind":"succeeded","event":"v06-20-233821:16:succeeded","result":{"sent":1,"failed":0,"removed":0},"ms":257,"at":"2026-11-14T15:38:54.382Z"}
+{"index":17,"kind":"failed","event":"v06-20-233821:17:failed","result":{"sent":1,"failed":0,"removed":0},"ms":261,"at":"2026-11-14T15:38:56.155Z"}
+{"index":18,"kind":"waiting_input","event":"v06-20-233821:18:waiting_input","result":{"sent":1,"failed":0,"removed":0},"ms":260,"at":"2026-11-14T15:38:57.916Z"}
+{"index":19,"kind":"waiting_approval","event":"v06-20-233821:19:waiting_approval","result":{"sent":1,"failed":0,"removed":0},"ms":260,"at":"2026-11-14T15:38:59.682Z"}
+{"index":20,"kind":"succeeded","event":"v06-20-233821:20:succeeded","result":{"sent":1,"failed":0,"removed":0},"ms":264,"at":"2026-11-14T15:39:01.460Z"}
+EVIDENCE C:\Users\22472\Desktop\DSH提醒小助手\dsh-mobile-watch\docs\evidence\m2\v06-push-test.json

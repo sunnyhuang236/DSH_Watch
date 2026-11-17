@@ -1,0 +1,3 @@
+首次扫描完成：32 个会话日志；stats={"ingested":17870,"ignored":3387,"duplicates":0,"errors":0}
+近实时面板: http://127.0.0.1:7394/（每 500ms 轮询，只读）
+按 Ctrl+C 退出。

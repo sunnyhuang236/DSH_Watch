@@ -1,0 +1,218 @@
+{
+ "generatedAt": "2026-11-05T13:42:58.755Z",
+ "sessions": 32,
+ "mainSessions": 12,
+ "subagentSessions": 20,
+ "turnEndReasons": {
+  "completed": 103,
+  "aborted": 4
+ },
+ "approval": {
+  "events": 24,
+  "decided": 24,
+  "outcomes": {
+   "allowed-once": 24
+  },
+  "waitsMs": [
+   1688,
+   1851,
+   1914,
+   1990,
+   2156,
+   2183,
+   2897,
+   3429,
+   10049,
+   16551,
+   20969,
+   22894,
+   26865,
+   27647,
+   37675,
+   48739,
+   123685,
+   144829,
+   162210,
+   188176,
+   212572,
+   317500,
+   781103,
+   1665017
+  ],
+  "sessions": [
+   {
+    "session": "955c08f1",
+    "depth": 0,
+    "asked": 2,
+    "firstSeq": 249,
+    "lastSeq": 294
+   },
+   {
+    "session": "5444b293",
+    "depth": 0,
+    "asked": 1,
+    "firstSeq": 2374,
+    "lastSeq": 2374
+   },
+   {
+    "session": "13b06b41",
+    "depth": 0,
+    "asked": 14,
+    "firstSeq": 299,
+    "lastSeq": 3819
+   },
+   {
+    "session": "2554cf26",
+    "depth": 0,
+    "asked": 3,
+    "firstSeq": 256,
+    "lastSeq": 507
+   },
+   {
+    "session": "aac8c20a",
+    "depth": 0,
+    "asked": 3,
+    "firstSeq": 937,
+    "lastSeq": 1306
+   },
+   {
+    "session": "9c3394fc",
+    "depth": 0,
+    "asked": 1,
+    "firstSeq": 1166,
+    "lastSeq": 1166
+   }
+  ],
+  "waitStats": {
+   "n": 24,
+   "min": 1688,
+   "p50": 26865,
+   "max": 1665017
+  }
+ },
+ "question": {
+  "toolCalls": 3,
+  "waitsMs": [
+   25810,
+   16304,
+   52515
+  ],
+  "sessions": [
+   {
+    "session": "955c08f1",
+    "callSeq": 222,
+    "resultSeq": 223,
+    "waitMs": 25810
+   },
+   {
+    "session": "5444b293",
+    "callSeq": 2010,
+    "resultSeq": 2011,
+    "waitMs": 16304
+   },
+   {
+    "session": "987b3f53",
+    "callSeq": 43,
+    "resultSeq": 44,
+    "waitMs": 52515
+   }
+  ],
+  "questionReplies": 0,
+  "waitStats": {
+   "n": 3,
+   "min": 25810,
+   "p50": 16304,
+   "max": 52515
+  }
+ },
+ "llmRetry": {
+  "assistantAttempt": 8,
+  "retry": 8,
+  "retryStarted": 8,
+  "windows": [
+   {
+    "session": "5444b293",
+    "seq": 2158,
+    "kind": "assistant/attempt"
+   },
+   {
+    "session": "5444b293",
+    "seq": 2159,
+    "kind": "llm/retry"
+   },
+   {
+    "session": "5444b293",
+    "seq": 2161,
+    "kind": "assistant/attempt"
+   },
+   {
+    "session": "5444b293",
+    "seq": 2162,
+    "kind": "llm/retry"
+   },
+   {
+    "session": "5444b293",
+    "seq": 2164,
+    "kind": "assistant/attempt"
+   },
+   {
+    "session": "5444b293",
+    "seq": 2165,
+    "kind": "llm/retry"
+   },
+   {
+    "session": "5444b293",
+    "seq": 2167,
+    "kind": "assistant/attempt"
+   },
+   {
+    "session": "5444b293",
+    "seq": 2168,
+    "kind": "llm/retry"
+   },
+   {
+    "session": "5444b293",
+    "seq": 2170,
+    "kind": "assistant/attempt"
+   },
+   {
+    "session": "5444b293",
+    "seq": 2171,
+    "kind": "llm/retry"
+   },
+   {
+    "session": "5444b293",
+    "seq": 2183,
+    "kind": "assistant/attempt"
+   },
+   {
+    "session": "5444b293",
+    "seq": 2184,
+    "kind": "llm/retry"
+   },
+   {
+    "session": "13b06b41",
+    "seq": 3359,
+    "kind": "assistant/attempt"
+   },
+   {
+    "session": "13b06b41",
+    "seq": 3360,
+    "kind": "llm/retry"
+   },
+   {
+    "session": "13b06b41",
+    "seq": 3362,
+    "kind": "assistant/attempt"
+   },
+   {
+    "session": "13b06b41",
+    "seq": 3363,
+    "kind": "llm/retry"
+   }
+  ]
+ },
+ "interruptedAssistant": 2,
+ "toolErrorResults": 50,
+ "failedTurns": 0
+}

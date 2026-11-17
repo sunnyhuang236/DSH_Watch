@@ -5,9 +5,16 @@
 *.db-shm
 node_modules/
 docs/backup-m1-install/
-docs/evidence/
 
+# 证据：发布文本/JSON 证据；截图等二进制留在本地
+docs/evidence/**/*.jpg
+docs/evidence/**/*.jpeg
+docs/evidence/**/*.png
+docs/evidence/**/*.gif
+
+# 日志默认忽略，但证据目录里的日志需要保留
 *.log
+!docs/evidence/**/*.log
 
 dist/
 

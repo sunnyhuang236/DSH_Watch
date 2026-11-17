@@ -1,0 +1,2 @@
+dependencies.dsh-watch=file:C:/Users/22472/Desktop/DSH提醒小助手/dsh-mobile-watch/packages/dsh-watch
+bundles includes=true

@@ -1,0 +1,1 @@
+{"test":"M4E-CONFLICT-01","profile":"m4-edge","action_id":"act_8cbf995b-2a1e-4bb9-8d6e-d83db31b455c","status":"resolved","decision":"desktop","outcome":"allowed-once","http_status":409,"probe_conflict_lines":1,"note":"桌面先允许后手机再次提交返回 409 conflict；工具只执行一次"}

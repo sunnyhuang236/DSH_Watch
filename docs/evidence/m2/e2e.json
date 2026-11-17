@@ -1,0 +1,75 @@
+{
+  "generatedAt": "2026-11-14T13:13:31.629Z",
+  "gateway": "http://127.0.0.1:8787",
+  "steps": [
+    {
+      "name": "health",
+      "status": 200,
+      "upstream": {
+        "ok": true,
+        "url": "http://127.0.0.1:7317"
+      },
+      "devices": 0,
+      "subscriptions": 0
+    },
+    {
+      "name": "pair_session",
+      "pairing_id": "pair_314d4aadce285b1b04",
+      "code": "68684477",
+      "pair_url": "http://127.0.0.1:8787/pair?p=pair_314d4aadce285b1b04&code=68684477",
+      "computer_name": "LAPTOP-21ASP22L",
+      "fingerprint": "211e077f4051"
+    },
+    {
+      "name": "pair_request",
+      "request_id": "req_46f4544a25017a6a22",
+      "status": "pending"
+    },
+    {
+      "name": "pair_confirm",
+      "status": 200,
+      "body": {
+        "status": "confirmed",
+        "device": {
+          "device_id": "dev_00e0eabf4d58a764",
+          "name": "M2 E2E iPhone"
+        }
+      }
+    },
+    {
+      "name": "pair_poll",
+      "status": 200,
+      "result": "confirmed",
+      "device_id": "dev_00e0eabf4d58a764",
+      "token_prefix": "dsw_WahT…"
+    },
+    {
+      "name": "tasks",
+      "status": 200,
+      "count": 5,
+      "states": {
+        "running": 1,
+        "succeeded": 4
+      }
+    },
+    {
+      "name": "unauthorized",
+      "status": 401,
+      "code": "unauthorized"
+    },
+    {
+      "name": "pwa",
+      "index_status": 200,
+      "html_has_brand": true,
+      "manifest_status": 200,
+      "manifest_name": "DSH Watch",
+      "sw_status": 200,
+      "sw_has_push": true
+    },
+    {
+      "name": "M2 E2E iPhone",
+      "status": 200,
+      "device_id": "dev_00e0eabf4d58a764"
+    }
+  ]
+}

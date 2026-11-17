@@ -1,0 +1,235 @@
+{
+  "schema_version": "1.0",
+  "task_id": "054b3a96-48c1-4555-9203-8fa2cf158aab",
+  "events": [
+    {
+      "event_id": "054b3a96-48c1-4555-9203-8fa2cf158aab:0",
+      "task_id": "054b3a96-48c1-4555-9203-8fa2cf158aab",
+      "run_id": null,
+      "seq": 0,
+      "occurred_at": 1794659280906,
+      "type": "diagnostic",
+      "payload": {
+        "kind": "subagent/descriptor"
+      }
+    },
+    {
+      "event_id": "054b3a96-48c1-4555-9203-8fa2cf158aab:5",
+      "task_id": "054b3a96-48c1-4555-9203-8fa2cf158aab",
+      "run_id": "054b3a96-48c1-4555-9203-8fa2cf158aab:1",
+      "seq": 5,
+      "occurred_at": 1794659281025,
+      "type": "run_started",
+      "payload": {
+        "turn": 1
+      }
+    },
+    {
+      "event_id": "054b3a96-48c1-4555-9203-8fa2cf158aab:7",
+      "task_id": "054b3a96-48c1-4555-9203-8fa2cf158aab",
+      "run_id": "054b3a96-48c1-4555-9203-8fa2cf158aab:1",
+      "seq": 7,
+      "occurred_at": 1794659281309,
+      "type": "step_started",
+      "payload": {
+        "turn": 1,
+        "step": 1
+      }
+    },
+    {
+      "event_id": "054b3a96-48c1-4555-9203-8fa2cf158aab:9",
+      "task_id": "054b3a96-48c1-4555-9203-8fa2cf158aab",
+      "run_id": null,
+      "seq": 9,
+      "occurred_at": 1794659281317,
+      "type": "user_message",
+      "payload": {
+        "source_kind": "user",
+        "is_human": true,
+        "text_len": 43,
+        "title": "这是一次插件实时摄取的冒烟测试。请只回复两个字：好的。不要调用任何工具，不要读写文件。"
+      }
+    },
+    {
+      "event_id": "054b3a96-48c1-4555-9203-8fa2cf158aab:10",
+      "task_id": "054b3a96-48c1-4555-9203-8fa2cf158aab",
+      "run_id": null,
+      "seq": 10,
+      "occurred_at": 1794659281347,
+      "type": "user_message",
+      "payload": {
+        "source_kind": "runtime-context",
+        "is_human": false,
+        "text_len": 1271,
+        "title": null
+      }
+    },
+    {
+      "event_id": "054b3a96-48c1-4555-9203-8fa2cf158aab:11",
+      "task_id": "054b3a96-48c1-4555-9203-8fa2cf158aab",
+      "run_id": null,
+      "seq": 11,
+      "occurred_at": 1794659281349,
+      "type": "user_message",
+      "payload": {
+        "source_kind": "skill-catalog",
+        "is_human": false,
+        "text_len": 12948,
+        "title": null
+      }
+    },
+    {
+      "event_id": "054b3a96-48c1-4555-9203-8fa2cf158aab:12",
+      "task_id": "054b3a96-48c1-4555-9203-8fa2cf158aab",
+      "run_id": null,
+      "seq": 12,
+      "occurred_at": 1794659281351,
+      "type": "user_message",
+      "payload": {
+        "source_kind": "time-context",
+        "is_human": false,
+        "text_len": 261,
+        "title": null
+      }
+    },
+    {
+      "event_id": "054b3a96-48c1-4555-9203-8fa2cf158aab:15",
+      "task_id": "054b3a96-48c1-4555-9203-8fa2cf158aab",
+      "run_id": null,
+      "seq": 15,
+      "occurred_at": 1794659281355,
+      "type": "title",
+      "payload": {
+        "title": "这是一次插件实时摄取的冒烟"
+      }
+    },
+    {
+      "event_id": "054b3a96-48c1-4555-9203-8fa2cf158aab:16",
+      "task_id": "054b3a96-48c1-4555-9203-8fa2cf158aab",
+      "run_id": "054b3a96-48c1-4555-9203-8fa2cf158aab:1",
+      "seq": 16,
+      "occurred_at": 1794659287638,
+      "type": "assistant",
+      "payload": {
+        "turn": 1,
+        "step": 1,
+        "usage": {
+          "input_tokens": 19967,
+          "output_tokens": 502,
+          "cache_read_tokens": 512,
+          "cache_write_tokens": 0,
+          "total_tokens": 20981
+        },
+        "interrupted": false,
+        "content_types": [
+          "reasoning",
+          "tool-call"
+        ]
+      }
+    },
+    {
+      "event_id": "054b3a96-48c1-4555-9203-8fa2cf158aab:17",
+      "task_id": "054b3a96-48c1-4555-9203-8fa2cf158aab",
+      "run_id": "054b3a96-48c1-4555-9203-8fa2cf158aab:1",
+      "seq": 17,
+      "occurred_at": 1794659287641,
+      "type": "tool_started",
+      "payload": {
+        "turn": 1,
+        "step": 1,
+        "call_id": "call_00_xBrICyj8ZojmS8dldjoh6367",
+        "name": "send_message",
+        "is_question": false
+      }
+    },
+    {
+      "event_id": "054b3a96-48c1-4555-9203-8fa2cf158aab:18",
+      "task_id": "054b3a96-48c1-4555-9203-8fa2cf158aab",
+      "run_id": "054b3a96-48c1-4555-9203-8fa2cf158aab:1",
+      "seq": 18,
+      "occurred_at": 1794659297317,
+      "type": "tool_finished",
+      "payload": {
+        "turn": 1,
+        "step": 1,
+        "call_id": "call_00_xBrICyj8ZojmS8dldjoh6367",
+        "is_error": false,
+        "exit_code": null
+      }
+    },
+    {
+      "event_id": "054b3a96-48c1-4555-9203-8fa2cf158aab:19",
+      "task_id": "054b3a96-48c1-4555-9203-8fa2cf158aab",
+      "run_id": "054b3a96-48c1-4555-9203-8fa2cf158aab:1",
+      "seq": 19,
+      "occurred_at": 1794659297323,
+      "type": "step_finished",
+      "payload": {
+        "turn": 1,
+        "step": 1
+      }
+    },
+    {
+      "event_id": "054b3a96-48c1-4555-9203-8fa2cf158aab:20",
+      "task_id": "054b3a96-48c1-4555-9203-8fa2cf158aab",
+      "run_id": "054b3a96-48c1-4555-9203-8fa2cf158aab:1",
+      "seq": 20,
+      "occurred_at": 1794659297335,
+      "type": "step_started",
+      "payload": {
+        "turn": 1,
+        "step": 2
+      }
+    },
+    {
+      "event_id": "054b3a96-48c1-4555-9203-8fa2cf158aab:21",
+      "task_id": "054b3a96-48c1-4555-9203-8fa2cf158aab",
+      "run_id": "054b3a96-48c1-4555-9203-8fa2cf158aab:1",
+      "seq": 21,
+      "occurred_at": 1794659302751,
+      "type": "assistant",
+      "payload": {
+        "turn": 1,
+        "step": 2,
+        "usage": {
+          "input_tokens": 6043,
+          "output_tokens": 2,
+          "cache_read_tokens": 14976,
+          "cache_write_tokens": 0,
+          "total_tokens": 21021
+        },
+        "interrupted": false,
+        "content_types": [
+          "text"
+        ]
+      }
+    },
+    {
+      "event_id": "054b3a96-48c1-4555-9203-8fa2cf158aab:22",
+      "task_id": "054b3a96-48c1-4555-9203-8fa2cf158aab",
+      "run_id": "054b3a96-48c1-4555-9203-8fa2cf158aab:1",
+      "seq": 22,
+      "occurred_at": 1794659302753,
+      "type": "step_finished",
+      "payload": {
+        "turn": 1,
+        "step": 2
+      }
+    },
+    {
+      "event_id": "054b3a96-48c1-4555-9203-8fa2cf158aab:23",
+      "task_id": "054b3a96-48c1-4555-9203-8fa2cf158aab",
+      "run_id": "054b3a96-48c1-4555-9203-8fa2cf158aab:1",
+      "seq": 23,
+      "occurred_at": 1794659302755,
+      "type": "run_finished",
+      "payload": {
+        "turn": 1,
+        "reason_kind": "completed",
+        "reason_detail": null,
+        "error_code": null
+      }
+    }
+  ],
+  "next_cursor": null
+}

@@ -1,0 +1,13 @@
+
+> dsh-mobile-watch@0.1.0 special:fixtures
+> node tools/make-special-fixtures.mjs
+
+real-multi-approval → fixtures\special\real-multi-approval-window.jsonl events=58 state=running summary=运行中 · pwsh
+real-question-wait → fixtures\special\real-question-wait-window.jsonl events=21 state=running summary=运行中
+real-llm-retry → fixtures\special\real-llm-retry-window.jsonl events=30 state=running summary=运行中 · 步骤 21
+synthetic → fixtures\special\synthetic-failed-turn.jsonl events=7 state=failed summary=执行失败
+synthetic → fixtures\special\synthetic-approval-outcomes.jsonl events=22 state=succeeded summary=已完成
+synthetic → fixtures\special\synthetic-question-aborted.jsonl events=4 state=cancelled summary=已取消
+external-observed → fixtures\special\external-observed-failed-turn.jsonl events=10 state=failed summary=执行失败
+external-reason-kinds → fixtures\special\external-reason-kinds.jsonl events=12 state=cancelled summary=已取消
+provenance → fixtures/special/provenance.json

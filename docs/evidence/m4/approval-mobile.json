@@ -1,0 +1,24 @@
+{
+    "generated_at":  "2026-11-15T18:39:16.8057574+08:00",
+    "action":  {
+                   "action_id":  "act_dba81f1f-7071-40fc-9c0b-bed1baa757a3",
+                   "task_id":  "session-4bc290cf-7740-44ac-9809-2ae2aa08aeac",
+                   "tool_name":  "ops_bash",
+                   "call_id":  "call_00_TDh3tjzgE5aPVMB9BJ6T3378",
+                   "reason":  "验证移动端登录页在 390px 宽度下的实际布局需要无头浏览器渲染截图。",
+                   "display_reason":  null,
+                   "created_at":  1794738919326,
+                   "expires_at":  1794739219326,
+                   "status":  "decided",
+                   "outcome":  "allowed-once",
+                   "decision":  "mobile"
+               },
+    "task":  {
+                 "waiting":  null,
+                 "title":  "校园自习室预约系统开发",
+                 "task_id":  "session-4bc290cf-7740-44ac-9809-2ae2aa08aeac",
+                 "current_step":  113,
+                 "state":  "running"
+             },
+    "note":  "mobile PWA approval decision verified; task moved from waiting to running"
+}

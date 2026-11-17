@@ -1,0 +1,15 @@
+{
+  "url": "https://bigger-ultimate-pair-vincent.trycloudflare.com",
+  "checkedAt": "2026-11-14T14:14:15.110Z",
+  "info": {
+    "href": "https://bigger-ultimate-pair-vincent.trycloudflare.com/pair#/pair",
+    "isSecureContext": true,
+    "sw": "registered:https://bigger-ultimate-pair-vincent.trycloudflare.com/",
+    "manifest": "/manifest.webmanifest",
+    "appleIcon": "/icons/apple-touch-icon.png",
+    "standaloneMeta": "yes",
+    "displayMode": false,
+    "viewport": "390x844"
+  },
+  "screenshot": "docs/evidence/panel/m2-tunnel-pair.png"
+}
