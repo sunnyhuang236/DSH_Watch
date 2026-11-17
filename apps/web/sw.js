@@ -1,5 +1,5 @@
 // DSH Watch Service Worker: PWA 缓存 + Web Push 通知 + 点击深链
-const CACHE = 'dsh-watch-v7';
+const CACHE = 'dsh-watch-v8';
 const SHELL = [
   '/',
   '/index.html',
